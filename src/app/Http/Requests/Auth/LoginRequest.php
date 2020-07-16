@@ -5,7 +5,6 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * class LoginRequest
  * @bodyParam email string required The mail of the user. Example: john@doe.com
  * @bodyParam password string required The password of the user. Example: secret
  */

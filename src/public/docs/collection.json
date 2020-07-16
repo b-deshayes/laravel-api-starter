@@ -2,7 +2,7 @@
     "variables": [],
     "info": {
         "name": "Laravel API",
-        "_postman_id": "682e5e1a-d4cc-4a2e-95df-58796c6b71e6",
+        "_postman_id": "73dc640e-ec5b-4274-a0c9-d40ccb91413f",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
@@ -16,7 +16,7 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "localhost:8081",
+                            "host": "localhost",
                             "path": "api\/v1\/auth\/login",
                             "query": []
                         },
@@ -36,6 +36,62 @@
                             "raw": "{\n    \"email\": \"john@doe.com\",\n    \"password\": \"secret\"\n}"
                         },
                         "description": "Get a JWT Token thought the given credentials.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "auth\/register",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/auth\/register",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@doe.com\",\n    \"password\": \"secret\"\n}"
+                        },
+                        "description": "Register a new user.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "auth\/@me",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/auth\/@me",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get information about current authenticated user.",
                         "response": []
                     }
                 }

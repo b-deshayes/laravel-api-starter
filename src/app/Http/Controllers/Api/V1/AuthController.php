@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Auth\TokenResource;
+use App\Http\Resources\User\UserResource;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
@@ -23,7 +26,8 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->except([
-            'login'
+            'login',
+            'register'
         ]);
     }
 
@@ -51,29 +55,41 @@ class AuthController extends Controller
     }
 
     /**
-     * Register a User.
+     * auth/register
      *
-     * TODO: Making documentation
+     * Register a new user.
+     *
+     * @apiResource App\Http\Resources\User\UserResource
+     * @apiResourceModel App\Models\User
+     *
+     * @responseFile 423 responses/auth/register.423.json
+     *
+     * @param RegisterRequest $request
      *
      * @return JsonResponse
      */
-    public function register(): JsonResponse
+    public function register(RegisterRequest $request): JsonResponse
     {
-        // TODO: Use resource to format the user response
-        // TODO: Ability to disable/enable global registration
+        return (new UserResource(User::create($request->validated())))
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
-     * Get the authenticated User.
+     * auth/@me
      *
-     * TODO: Making documentation
+     * Get information about current authenticated user.
      *
-     * @return JsonResponse
+     * @apiResource App\Http\Resources\User\UserResource
+     * @apiResourceModel App\Models\User
+     *
+     * @authenticated
+     *
+     * @return UserResource
      */
-    public function me(): JsonResponse
+    public function me(): UserResource
     {
-        // TODO: Use resource to format the user response
-        return response()->json(auth('api')->user());
+        return new UserResource(auth('api')->user());
     }
 
     /**

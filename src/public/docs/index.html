@@ -47,7 +47,7 @@
           <!-- START_INFO -->
 <h1>Info</h1>
 <p>Welcome to the generated API reference.
-<a href="http://localhost:8081/docs/collection.json">Get Postman Collection</a></p>
+<a href="http://localhost/docs/collection.json">Get Postman Collection</a></p>
 <!-- END_INFO -->
 <h1>Authentication</h1>
 <p>APIs for users's authentication</p>
@@ -58,13 +58,13 @@
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost:8081/api/v1/auth/login" \
+    "http://localhost/api/v1/auth/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -d '{"email":"john@doe.com","password":"secret"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8081/api/v1/auth/login"
+    "http://localhost/api/v1/auth/login"
 );
 
 let headers = {
@@ -87,7 +87,7 @@ fetch(url, {
 <pre><code class="language-php">
 $client = new \GuzzleHttp\Client();
 $response = $client-&gt;post(
-    'http://localhost:8081/api/v1/auth/login',
+    'http://localhost/api/v1/auth/login',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -145,6 +145,160 @@ print_r(json_decode((string) $body));</code></pre>
 </tbody>
 </table>
 <!-- END_2be1f0e022faf424f18f30275e61416e -->
+<!-- START_3157fb6d77831463001829403e201c3e -->
+<h2>auth/register</h2>
+<p>Register a new user.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST \
+    "http://localhost/api/v1/auth/register" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"John Doe","email":"john@doe.com","password":"secret"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/auth/register"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "John Doe",
+    "email": "john@doe.com",
+    "password": "secret"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;post(
+    'http://localhost/api/v1/auth/register',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'name' =&gt; 'John Doe',
+            'email' =&gt; 'john@doe.com',
+            'password' =&gt; 'secret',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (423):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "api.v1.auth.register.register_disabled"
+}</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": null,
+        "name": "Israel Schuppe",
+        "created_at": null
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/v1/auth/register</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>string</td>
+<td>required</td>
+<td>The name of the user.</td>
+</tr>
+<tr>
+<td><code>email</code></td>
+<td>string</td>
+<td>required</td>
+<td>The mail of the user.</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>string</td>
+<td>required</td>
+<td>The password of the user.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3157fb6d77831463001829403e201c3e -->
+<!-- START_55b4bd354f636859e328381ad837a615 -->
+<h2>auth/@me</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+Get information about current authenticated user.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/auth/@me" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/auth/@me"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get(
+    'http://localhost/api/v1/auth/@me',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "id": null,
+        "name": "Dr. Vivian Medhurst",
+        "created_at": null
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/auth/@me</code></p>
+<!-- END_55b4bd354f636859e328381ad837a615 -->
       </div>
       <div class="dark-box">
                         <div class="lang-selector">
