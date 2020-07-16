@@ -1,0 +1,45 @@
+{
+    "variables": [],
+    "info": {
+        "name": "Laravel API",
+        "_postman_id": "682e5e1a-d4cc-4a2e-95df-58796c6b71e6",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "\nAPIs for users's authentication",
+            "item": [
+                {
+                    "name": "auth\/login",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost:8081",
+                            "path": "api\/v1\/auth\/login",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"john@doe.com\",\n    \"password\": \"secret\"\n}"
+                        },
+                        "description": "Get a JWT Token thought the given credentials.",
+                        "response": []
+                    }
+                }
+            ]
+        }
+    ]
+}
