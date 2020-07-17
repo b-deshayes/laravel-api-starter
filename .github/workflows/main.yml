@@ -14,9 +14,9 @@ on:
 jobs:
   phpinsights:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./src
     steps:
-    - working-directory: ./src
-  
     - uses: actions/checkout@v1
 
     - uses: MilesChou/composer-action@master
