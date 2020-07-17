@@ -1,31 +1,56 @@
-# This is a basic workflow to help you get started with Actions
+name: PHPUnit
 
-name: PHPInsights
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   push:
-    branches: [ master ]
   pull_request:
-    branches: [ master ]
 
 defaults:
   run:
     working-directory: src
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  phpinsights:
+
+  tests:
     runs-on: ubuntu-latest
+    name: PHPUnit
+
     steps:
-    - uses: actions/checkout@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-composer-${{ hashFiles('composer.json') }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+
+      - name: Copy ENV Laravel Configuration for CI
+        run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-interaction --no-suggest
+        
+      - name: Generate key
+        run: php artisan key:generate
       
-    - name: Displaying current folder
-      run: pwd & ls -lah
-
-    - uses: MilesChou/composer-action@master
-      with:
-        args: install --no-interaction --no-scripts --no-suggest --prefer-dist
-
-    - uses: stefanzweifel/laravel-phpinsights-action@v1.1.1
+      - name: Create DB and schemas
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+          php artisan migrate:fresh --seed
+        
+      - name: Install NPM dependencies
+        run: npm install
+        
+      - name: Compile assets
+        run: npm run production
+        
+      - name: Execute tests
+        run: vendor/bin/phpunit --verbose
