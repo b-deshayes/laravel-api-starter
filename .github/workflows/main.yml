@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@v1
       
     - name: Displaying current folder
-      run: ls -lah
+      run: pwd & ls -lah
 
     - uses: MilesChou/composer-action@master
       with:
