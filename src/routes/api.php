@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->namespace('Api\V1')->name('api.v1.')->group(static function () {
-   Route::post('auth/login', 'AuthController@login')->name('auth.login');
-   Route::post('auth/register', 'AuthController@register')->name('auth.register');
-   Route::get('auth/@me', 'AuthController@me')->name('auth.me');
+    Route::post('auth/login', 'AuthController@login')->name('auth.login');
+    Route::delete('auth/logout', 'AuthController@logout')->name('auth.logout');
+    Route::post('auth/register', 'AuthController@register')->name('auth.register');
+    Route::get('auth/@me', 'AuthController@me')->name('auth.me');
+    Route::post('auth/refresh', 'AuthController@refresh')->name('auth.refresh');
 });
