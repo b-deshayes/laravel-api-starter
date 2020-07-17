@@ -20,6 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+      
+    - name: Displaying current folder
+      run: ls -lah
 
     - uses: MilesChou/composer-action@master
       with:
