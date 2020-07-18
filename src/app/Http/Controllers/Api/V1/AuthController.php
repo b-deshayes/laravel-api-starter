@@ -85,31 +85,40 @@ class AuthController extends Controller
      *
      * @authenticated
      *
-     * @return UserResource
+     * @return JsonResponse
      */
-    public function me(): UserResource
+    public function me(): JsonResponse
     {
-        return new UserResource(auth('api')->user());
+        return (new UserResource(auth('api')->user()))
+            ->response()
+            ->setStatusCode(Response::HTTP_OK);
     }
 
     /**
-     * Log the user out (Invalidate the token).
+     * auth/logout
      *
-     * TODO: Making documentation
+     * Logout the user (Invalidate the token).
+     *
+     * @response 204 responses/auth/logout.204.json
+     *
+     * @authenticated
      *
      * @return JsonResponse
      */
     public function logout(): JsonResponse
     {
         auth('api')->logout();
-        // TODO: Review for a better response
-        return response()->json(['message' => 'Successfully logged out'], Response::HTTP_OK);
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
     /**
+     * auth/refresh
+     *
      * Refresh a token.
      *
-     * TODO: Making documentation
+     * @responseFile 200 responses/auth/refresh.json
+     *
+     * @authenticated
      *
      * @return TokenResource
      */

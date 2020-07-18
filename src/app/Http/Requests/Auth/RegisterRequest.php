@@ -21,7 +21,11 @@ class RegisterRequest extends ApiRequest
     public function authorize(): bool
     {
         // If registering was globally disabled
-        abort_if(true, Response::HTTP_LOCKED, trans('api.v1.auth.register.register_disabled'));
+        abort_if(
+            !config('api.user_registration'),
+            Response::HTTP_LOCKED,
+            trans('api.v1.auth.register.register_disabled')
+        );
 
         return true;
     }
@@ -36,7 +40,28 @@ class RegisterRequest extends ApiRequest
         return [
             'name' => 'required|between:2,100',
             'email' => 'required|email|unique:users|max:50',
-            'password' => 'required|string|min:6',
+            'password' => [
+                'required',
+                'string',
+                'min:6',
+                'regex:/[a-z]/',      // must contain at least one lowercase letter
+                'regex:/[A-Z]/',      // must contain at least one uppercase letter
+                'regex:/[0-9]/',      // must contain at least one digit
+                'regex:/[@$!%*#?&]/'  // must contain at least one special char
+            ]
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            // TODO: translation - Should contains at least 6 characters, one lowercase, one uppercase and one digit
+            'password.regex' => trans('api.v1.auth.register.password.regex.message'),
         ];
     }
 

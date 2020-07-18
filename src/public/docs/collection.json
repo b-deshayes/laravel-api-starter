@@ -2,7 +2,7 @@
     "variables": [],
     "info": {
         "name": "Laravel API",
-        "_postman_id": "73dc640e-ec5b-4274-a0c9-d40ccb91413f",
+        "_postman_id": "df3e8a00-3131-4e2c-8a0b-12c92ad53643",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
@@ -16,7 +16,7 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "localhost",
+                            "host": "localhost:8081",
                             "path": "api\/v1\/auth\/login",
                             "query": []
                         },
@@ -40,11 +40,39 @@
                     }
                 },
                 {
+                    "name": "auth\/logout",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost:8081",
+                            "path": "api\/v1\/auth\/logout",
+                            "query": []
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Logout the user (Invalidate the token).",
+                        "response": []
+                    }
+                },
+                {
                     "name": "auth\/register",
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "localhost",
+                            "host": "localhost:8081",
                             "path": "api\/v1\/auth\/register",
                             "query": []
                         },
@@ -72,7 +100,7 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "localhost",
+                            "host": "localhost:8081",
                             "path": "api\/v1\/auth\/@me",
                             "query": []
                         },
@@ -92,6 +120,34 @@
                             "raw": "[]"
                         },
                         "description": "Get information about current authenticated user.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "auth\/refresh",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost:8081",
+                            "path": "api\/v1\/auth\/refresh",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Refresh a token.",
                         "response": []
                     }
                 }
