@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Requests;
-
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -18,7 +16,7 @@ abstract class ApiRequest extends FormRequest
      */
     protected function getValidatorInstance(): Validator
     {
-        return parent::getValidatorInstance()->after(function($validator){
+        return parent::getValidatorInstance()->after(function ($validator) {
             $this->after($validator);
         });
     }

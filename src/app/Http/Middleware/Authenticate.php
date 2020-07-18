@@ -35,7 +35,9 @@ class Authenticate extends Middleware
     protected function unauthenticated($request, array $guards): void
     {
         throw new AuthenticationException(
-            trans('api.exceptions.unauthenticated'), $guards, $this->redirectTo($request)
+            trans('api.exceptions.unauthenticated'),
+            $guards,
+            $this->redirectTo($request)
         );
     }
 }

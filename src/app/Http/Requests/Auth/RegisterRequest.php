@@ -21,7 +21,11 @@ class RegisterRequest extends ApiRequest
     public function authorize(): bool
     {
         // If registering was globally disabled
-        abort_if(!config('api.user_registration'), Response::HTTP_LOCKED, trans('api.v1.auth.register.register_disabled'));
+        abort_if(
+            !config('api.user_registration'),
+            Response::HTTP_LOCKED,
+            trans('api.v1.auth.register.register_disabled')
+        );
 
         return true;
     }
