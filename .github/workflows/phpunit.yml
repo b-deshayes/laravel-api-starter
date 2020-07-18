@@ -23,6 +23,7 @@ jobs:
         run: |
           cp .env.ci .env
           php artisan key:generate
-          
+          php artisan jwt:secret --always-no
+
       - name: Run PHPUnit
         run: vendor/bin/phpunit tests/
