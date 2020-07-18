@@ -1,5 +1,11 @@
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
+<p align="center">
+  <img alt="PHP Unit" src="https://github.com/Kotus-s/laravel-api-starter/workflows/phpunit/badge.svg?branch=master" />
+  <img alt="PHP Insights" src="https://github.com/Kotus-s/laravel-api-starter/workflows/insights/badge.svg?branch=master" />
+  <img alt="GitHub" src="https://img.shields.io/github/license/Kotus-s/laravel-api-starter">
+</p>
+
 ## 📣 About this respository
 
 This repository is a prepared template which can be used to create an API. It contains all the necessary a pre-configured packages needed to concentrate yourself on the essential of the API.
