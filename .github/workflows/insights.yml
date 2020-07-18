@@ -1,0 +1,22 @@
+name: insights
+
+on:
+  push:
+  pull_request:
+
+defaults:
+  run:
+    working-directory: src
+
+jobs:
+  phpinsights:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Composer dependencies
+      run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      
+    - name: Run PHPInsights
+      run: php artisan insights -v
