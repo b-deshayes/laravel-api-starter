@@ -15,8 +15,9 @@ jobs:
 
     - name: Composer dependencies
       run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      
+    - name: Install PHPInsights
+      run: composer require nunomaduro/phpinsights --dev --no-progress --no-ansi --no-interaction
 
     - name: phpinsights
-      uses: stefanzweifel/laravel-phpinsights-action@v1.0.0
-      with:
-        args: -v --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
+      run: php artisan insights -v --min-quality=80 --min-complexity=80 --min-architecture=80 --min-style=80
