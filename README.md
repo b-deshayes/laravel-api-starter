@@ -13,20 +13,20 @@ This repository is a prepared template which can be used to create an API. It co
 ## 📌 Current features
 
 - [x] Auto generated documentation
-- [x] docker-compose local stack
-
+- [x] Development docker-compose
+- [x] JWT token system
+- [x] GitHub Action PHPInsights and PHPUnit workflows
 ## 🗺 Roadmap
 
 - [ ] ACL system based on permissions and roles
 - [ ] Artisan command to generate an API endpoint model based on entity
-- [ ] Production Dockerfile that can be set in production's docker-compose stack and build by a CI/CD service
+- [ ] Production docker compose stack
 - [ ] Dynamic settings system
-- [ ] 
 
 ## 📦 Packages used
 
-- mpociot/laravel-apidoc-generator - Auto-generated documentation
-- laravel/passport - Laravel Passport
+- [mpociot/laravel-apidoc-generator](https://github.com/mpociot/laravel-apidoc-generator) - Auto-generated documentation
+- [tymon/jwt-auth](https://github.com/tymondesigns/jwt-auth) - JWT token handler
 
 ## 🐳 How to use docker-compose local stack
 
@@ -46,10 +46,18 @@ docker-compose run --rm npm run dev # Execute an npm command
 docker-compose run --rm artisan migrate # Execute artisan command
 ```
 
+```shell
+docker-compose run --rm artisan apidoc:generate # Generate the API documentation
+```
+
 ## 📎 Sources
 
 - [https://laravel.com/docs/7.x/authorization#policy-methods](https://laravel.com/docs/7.x/authorization#policy-methods)
 - [https://github.com/aschmelyun/docker-compose-laravel](https://github.com/aschmelyun/docker-compose-laravel)
+- https://medium.com/@ripoche.b/cr%C3%A9er-une-spa-avec-authentification-par-r%C3%B4les-avec-laravel-et-vue-js-e69782ac6896
+- https://stackoverflow.com/questions/46103215/laravel-permissions-and-roles-with-gate-can
+- https://code.tutsplus.com/tutorials/gates-and-policies-in-laravel--cms-29780
+- https://docs.spatie.be/laravel-permission/v3/introduction/
 
 ## 📄 License
 

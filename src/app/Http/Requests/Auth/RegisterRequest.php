@@ -24,7 +24,7 @@ class RegisterRequest extends ApiRequest
         abort_if(
             !config('api.user_registration'),
             Response::HTTP_LOCKED,
-            trans('api.v1.auth.register.register_disabled')
+            __('api.v1.auth.register.register_disabled')
         );
 
         return true;
@@ -61,7 +61,7 @@ class RegisterRequest extends ApiRequest
     {
         return [
             // TODO: translation - Should contains at least 6 characters, one lowercase, one uppercase and one digit
-            'password.regex' => trans('api.v1.auth.register.password.regex.message'),
+            'password.regex' => __('api.v1.auth.register.password.regex.message'),
         ];
     }
 
