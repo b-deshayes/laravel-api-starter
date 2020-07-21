@@ -5,6 +5,7 @@ namespace App\Http\Requests\Auth;
 use App\Http\Requests\ApiRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Response;
+use Kotus\Settings\Facades\Settings;
 
 /**
  * @bodyParam name string required The name of the user. Example: John Doe
@@ -22,7 +23,7 @@ class RegisterRequest extends ApiRequest
     {
         // If registering was globally disabled
         abort_if(
-            !config('api.user_registration'),
+            !(bool)Settings::get('user_registration'),
             Response::HTTP_LOCKED,
             __('api.v1.auth.register.register_disabled')
         );

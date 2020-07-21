@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
+use Kotus\Settings\Facades\Settings;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -122,7 +123,7 @@ class AuthenticationTest extends TestCase
      */
     public function testCannotRegisterIfGloballyDisabled(): void
     {
-        Config::set('api.user_registration', false);
+        Settings::set('user_registration', false);
         $response = $this->post(route('api.v1.auth.register'), [], [
             'Accept' => 'application/json'
         ]);
@@ -141,7 +142,7 @@ class AuthenticationTest extends TestCase
     public function testRegisterUser(): void
     {
         // Ensure registration is enabled.
-        Config::set('api.user_registration', true);
+        Settings::set('user_registration', true);
 
         $newUser = [
             'email' => 'john.doe@app.io',
@@ -176,7 +177,7 @@ class AuthenticationTest extends TestCase
     public function testRefuseTooSimplePassword(): void
     {
         // Ensure registration is enabled.
-        Config::set('api.user_registration', true);
+        Settings::set('user_registration', true);
 
         $newUser = [
             'email' => 'john.doe',

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6667ad37c367cf7313e0bde5761bce26",
+    "content-hash": "adba16228f9865daefc869980ff1dd67",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -926,6 +926,60 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "kotus/laravel-settings",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kotus-s/laravel-settings.git",
+                "reference": "39bb790a5cec41b208149b0144ab7d22cff3da62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kotus-s/laravel-settings/zipball/39bb790a5cec41b208149b0144ab7d22cff3da62",
+                "reference": "39bb790a5cec41b208149b0144ab7d22cff3da62",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "^5.8|^6.0|^7.0",
+                "illuminate/contracts": "^5.8|^6.0|^7.0",
+                "illuminate/database": "^5.8|^6.0|^7.0",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.3",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kotus\\Settings\\Providers\\SettingsServiceProvider"
+                    ],
+                    "aliases": {
+                        "Settings": "Kotus\\Settings\\Facades\\Settings"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kotus\\Settings\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bastien Deshayes",
+                    "email": "bastien@deshayes.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple key/value secure settings stored in database",
+            "time": "2020-07-21T19:07:50+00:00"
         },
         {
             "name": "laravel/framework",
