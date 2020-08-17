@@ -929,16 +929,16 @@
         },
         {
             "name": "kotus/laravel-settings",
-            "version": "v1.1.0",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Kotus-s/laravel-settings.git",
-                "reference": "f34200d7fa152eeee619cd0b2a97eb3f0e2adefe"
+                "reference": "7834dcd4258ec4c8003c6f8b54ac36df568ab560"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Kotus-s/laravel-settings/zipball/f34200d7fa152eeee619cd0b2a97eb3f0e2adefe",
-                "reference": "f34200d7fa152eeee619cd0b2a97eb3f0e2adefe",
+                "url": "https://api.github.com/repos/Kotus-s/laravel-settings/zipball/7834dcd4258ec4c8003c6f8b54ac36df568ab560",
+                "reference": "7834dcd4258ec4c8003c6f8b54ac36df568ab560",
                 "shasum": ""
             },
             "require": {
@@ -979,7 +979,7 @@
                 }
             ],
             "description": "Simple key/value secure settings stored in database",
-            "time": "2020-07-27T12:19:08+00:00"
+            "time": "2020-08-17T14:41:32+00:00"
         },
         {
             "name": "laravel/framework",
@@ -8326,6 +8326,7 @@
             ],
             "description": "FinderFacade is a convenience wrapper for Symfony's Finder component.",
             "homepage": "https://github.com/sebastianbergmann/finder-facade",
+            "abandoned": true,
             "time": "2020-02-08T06:07:58+00:00"
         },
         {
