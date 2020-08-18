@@ -16,17 +16,21 @@ This repository is a prepared template which can be used to create an API. It co
 - [x] Development docker-compose
 - [x] JWT token system
 - [x] GitHub Action PHPInsights and PHPUnit workflows
+- [x] Repository pattern
+- [x] Artisan command to generate repository (artisan make:repository ModelName)
+
 ## 🗺 Roadmap
 
+- [ ] Dynamic settings system
 - [ ] ACL system based on permissions and roles
 - [ ] Artisan command to generate an API endpoint model based on entity
 - [ ] Production docker compose stack
-- [ ] Dynamic settings system
 
 ## 📦 Packages used
 
 - [mpociot/laravel-apidoc-generator](https://github.com/mpociot/laravel-apidoc-generator) - Auto-generated documentation
 - [tymon/jwt-auth](https://github.com/tymondesigns/jwt-auth) - JWT token handler
+- [kotus/laravel-settings](https://github.com/Kotus-s/laravel-settings) - laravel-settings
 
 ## 🐳 How to use docker-compose local stack
 
@@ -48,6 +52,10 @@ docker-compose run --rm artisan migrate # Execute artisan command
 
 ```shell
 docker-compose run --rm artisan apidoc:generate # Generate the API documentation
+```
+
+```shell
+docker-compose run --rm artisan make:repository User # Generate the user repository
 ```
 
 ## 📎 Sources

@@ -1,0 +1,11 @@
+<?php
+
+
+namespace App\Repositories;
+
+use App\Models\{{ model_name }};
+
+interface {{ model_name }}RepositoryInterface extends EloquentRepositoryInterface
+{
+
+}

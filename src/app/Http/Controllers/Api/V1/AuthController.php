@@ -8,23 +8,32 @@ use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Auth\TokenResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 /**
  * @group  Authentication
  *
- * APIs for users's authentication
+ * APIs for user's authentication
  */
 class AuthController extends Controller
 {
+
+    /**
+     * User repository
+     * @var UserRepositoryInterface
+     */
+    private $userRepository;
+
     /**
      * Create a new AuthController instance.
      *
-     * @return void
+     * @param UserRepositoryInterface $userRepository
      */
-    public function __construct()
+    public function __construct(UserRepositoryInterface $userRepository)
     {
+        $this->userRepository = $userRepository;
         $this->middleware('auth:api')->except([
             'login',
             'register'
@@ -70,7 +79,7 @@ class AuthController extends Controller
      */
     public function register(RegisterRequest $request): JsonResponse
     {
-        return (new UserResource(User::create($request->validated())))
+        return (new UserResource($this->userRepository->create($request->validated())))
             ->response()
             ->setStatusCode(Response::HTTP_CREATED);
     }
