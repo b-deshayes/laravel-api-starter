@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\UsesUuid;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -21,6 +22,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use UsesUuid;
     use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

@@ -57,7 +57,7 @@ class AuthController extends Controller
 
         $token = auth('api')->attempt($validated);
         if (! $token) {
-            abort('403', __('api.v1.auth.login.invalid_credentials'));
+            abort(Response::HTTP_FORBIDDEN, __('api.v1.auth.login.invalid_credentials'));
         }
 
         return new TokenResource($token);
