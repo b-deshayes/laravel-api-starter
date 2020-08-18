@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Eloquent;
-
 
 use App\Repositories\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -36,7 +34,8 @@ class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
-     * @param $id
+     * @param mixed $id
+     *
      * @return Model
      */
     public function find($id): ?Model
@@ -46,6 +45,7 @@ class BaseRepository implements EloquentRepositoryInterface
 
     /**
      * @param array $columns
+     *
      * @return Collection
      */
     public function all(array $columns = ['*']): Collection

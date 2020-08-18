@@ -10,15 +10,18 @@ class UserResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param Request|null $request
+     *
      * @return array
+     *
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter
      */
-    public function toArray($request): array
+    public function toArray($request = null): array
     {
         $data = [
             'id' => $this->id,
             'name' => $this->name,
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
         ];
 
         // TODO: Find a better way to do it, maybe policy or gate ?

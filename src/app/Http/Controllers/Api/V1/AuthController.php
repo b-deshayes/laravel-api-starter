@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\Auth\TokenResource;
 use App\Http\Resources\User\UserResource;
-use App\Models\User;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -19,9 +18,9 @@ use Illuminate\Http\Response;
  */
 class AuthController extends Controller
 {
-
     /**
      * User repository
+     *
      * @var UserRepositoryInterface
      */
     private $userRepository;
@@ -36,7 +35,7 @@ class AuthController extends Controller
         $this->userRepository = $userRepository;
         $this->middleware('auth:api')->except([
             'login',
-            'register'
+            'register',
         ]);
     }
 
@@ -56,7 +55,8 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
 
-        if (!$token = auth('api')->attempt($validated)) {
+        $token = auth('api')->attempt($validated);
+        if (! $token) {
             abort('403', __('api.v1.auth.login.invalid_credentials'));
         }
 
@@ -69,6 +69,7 @@ class AuthController extends Controller
      * Register a new user.
      *
      * @apiResource App\Http\Resources\User\UserResource
+     *
      * @apiResourceModel App\Models\User
      *
      * @responseFile 423 responses/auth/register.423.json
@@ -90,13 +91,14 @@ class AuthController extends Controller
      * Get information about current authenticated user.
      *
      * @apiResource App\Http\Resources\User\UserResource
+     *
      * @apiResourceModel App\Models\User
      *
      * @authenticated
      *
      * @return JsonResponse
      */
-    public function me(): JsonResponse
+    public function profile(): JsonResponse
     {
         return (new UserResource(auth('api')->user()))
             ->response()

@@ -28,7 +28,5 @@ abstract class ApiRequest extends FormRequest
      *
      * @return void
      */
-    protected function after(Validator $validator): void
-    {
-    }
+    abstract protected function after(Validator $validator): void;
 }

@@ -23,9 +23,9 @@ class RegisterRequest extends ApiRequest
     {
         // If registering was globally disabled
         abort_if(
-            !(bool)Settings::get('user_registration'),
+            ! (bool) Settings::get('user_registration'),
             Response::HTTP_LOCKED,
-            __('api.v1.auth.register.register_disabled')
+            __('api.v1.auth.register.register_disabled'),
         );
 
         return true;
@@ -48,8 +48,8 @@ class RegisterRequest extends ApiRequest
                 'regex:/[a-z]/',      // must contain at least one lowercase letter
                 'regex:/[A-Z]/',      // must contain at least one uppercase letter
                 'regex:/[0-9]/',      // must contain at least one digit
-                'regex:/[@$!%*#?&]/'  // must contain at least one special char
-            ]
+                'regex:/[@$!%*#?&]/',  // must contain at least one special char
+            ],
         ];
     }
 
@@ -77,7 +77,7 @@ class RegisterRequest extends ApiRequest
     {
         $data = $validator->getData();
         $validator->setData(array_merge($data, [
-            'password' => bcrypt($data['password'])
+            'password' => bcrypt($data['password']),
         ]));
     }
 }

@@ -10,15 +10,18 @@ class TokenResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
+     * @param  Request|null $request
+     *
      * @return array
+     *
+     * @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter
      */
-    public function toArray($request): array
+    public function toArray($request = null): array
     {
         return [
             'access_token' => $this->resource,
             'token_type' => 'bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
+            'expires_in' => auth('api')->factory()->getTTL() * 60,
         ];
     }
 }

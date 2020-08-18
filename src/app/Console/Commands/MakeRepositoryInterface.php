@@ -4,8 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 
 class MakeRepositoryInterface extends GeneratorCommand
@@ -37,6 +35,20 @@ class MakeRepositoryInterface extends GeneratorCommand
     private $baseModelName;
 
     /**
+     * Execute the console command.
+     *
+     * @throws FileNotFoundException
+     */
+    public function handle(): bool
+    {
+        $this->baseModelName = $this->getNameInput();
+
+        $this->input->setArgument('name', $this->baseModelName . 'RepositoryInterface');
+
+        return ! (parent::handle() === false && ! $this->option('force'));
+    }
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string
@@ -50,6 +62,7 @@ class MakeRepositoryInterface extends GeneratorCommand
      * Get the default namespace for the class.
      *
      * @param string $rootNamespace
+     *
      * @return string
      */
     protected function getDefaultNamespace($rootNamespace): string
@@ -62,25 +75,13 @@ class MakeRepositoryInterface extends GeneratorCommand
      *
      * @param  string  $stub
      * @param  string  $name
+     *
      * @return string
      */
     protected function replaceClass($stub, $name): string
     {
         $stub = parent::replaceClass($stub, $name);
         return str_replace('{{ model_name }}', $this->baseModelName, $stub);
-    }
-
-    /**
-     * Execute the console command.
-     * @throws FileNotFoundException
-     */
-    public function handle(): bool
-    {
-        $this->baseModelName = $this->getNameInput();
-
-        $this->input->setArgument('name', $this->baseModelName . 'RepositoryInterface');
-
-        return !(parent::handle() === false && !$this->option('force'));
     }
 
     /**

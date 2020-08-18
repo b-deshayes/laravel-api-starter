@@ -7,20 +7,6 @@ use Illuminate\Support\Str;
 trait UsesUuid
 {
     /**
-     * Hydrate the identifier key with an unique uuid on boot
-     *
-     * @return void
-     */
-    protected static function bootUsesUuid(): void
-    {
-        static::creating(static function ($model) {
-            if (!$model->getKey()) {
-                $model->{$model->getKeyName()} = (string)Str::uuid();
-            }
-        });
-    }
-
-    /**
      * Deactivate auto-incrementing on model
      *
      * @return bool
@@ -38,5 +24,19 @@ trait UsesUuid
     public function getKeyType(): string
     {
         return 'string';
+    }
+
+    /**
+     * Hydrate the identifier key with an unique uuid on boot
+     *
+     * @return void
+     */
+    protected static function bootUsesUuid(): void
+    {
+        static::creating(static function ($model) {
+            if (! $model->getKey()) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
     }
 }

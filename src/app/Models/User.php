@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\UsesUuid;
-use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -14,9 +13,9 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property string email
  * @property string password
  * @property string remember_token
- * @property Carbon email_verified_at
- * @property Carbon created_at
- * @property Carbon updated_at
+ * @property \Carbon\Carbon email_verified_at
+ * @property \Carbon\Carbon created_at
+ * @property \Carbon\Carbon updated_at
  */
 class User extends Authenticatable implements JWTSubject
 {
