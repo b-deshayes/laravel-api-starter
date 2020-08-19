@@ -26,6 +26,9 @@ class AuthenticationTest extends TestCase
 
         // Disable debug mode for more real tests.
         Config::set('app.debug', false);
+
+        // Run permissions/roles seeder
+        $this->artisan('db:seed --class=RoleSeeder');
     }
 
     /**

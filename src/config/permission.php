@@ -140,4 +140,8 @@ return [
 
         'store' => 'default',
     ],
+
+    'default' => [
+        'role_name' => 'user',
+    ],
 ];
