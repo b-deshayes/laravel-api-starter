@@ -16,4 +16,15 @@ abstract class Enum
         $class = new ReflectionClass(static::class);
         return array_keys($class->getConstants());
     }
+
+    /**
+     * Get all key/value pairs of current enum.
+     *
+     * @return array
+     */
+    public static function getAll(): array
+    {
+        $class = new ReflectionClass(static::class);
+        return $class->getConstants();
+    }
 }
