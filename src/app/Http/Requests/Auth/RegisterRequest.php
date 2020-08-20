@@ -5,6 +5,7 @@ namespace App\Http\Requests\Auth;
 use App\Http\Requests\ApiRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Kotus\Settings\Facades\Settings;
 
 /**

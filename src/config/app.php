@@ -1,5 +1,7 @@
 <?php
 
+use Kotus\Settings\Facades\Settings;
+
 return [
 
     /*
@@ -227,6 +229,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'IpAddress' => \App\Helpers\IpAddress::class,
+        'Settings' => Settings::class,
 
     ],
 

@@ -20,7 +20,8 @@ return [
      *      ['key' => ['value' => 'my_value', 'tenant' => 'my_tenant']
      */
     'defaults' => [
-        'user_registration' => true
+        'user_registration' => config('api.default_settings.user_registration', true),
+        'ip_restriction' => config('api.default_settings.ip_restriction', 'localhost')
     ]
 
 ];

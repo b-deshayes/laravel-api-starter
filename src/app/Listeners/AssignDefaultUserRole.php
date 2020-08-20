@@ -2,8 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\UserCreating;
-use App\Repositories\Eloquent\UserRepository;
+use App\Events\UserCreated;
 use App\Repositories\UserRepositoryInterface;
 
 class AssignDefaultUserRole
@@ -26,10 +25,10 @@ class AssignDefaultUserRole
     /**
      * Handle the event.
      *
-     * @param UserCreating $event
+     * @param UserCreated $event
      * @return void
      */
-    public function handle(UserCreating $event): void
+    public function handle(UserCreated $event): void
     {
         $this->userRepository->assignDefaultRole($event->user);
     }

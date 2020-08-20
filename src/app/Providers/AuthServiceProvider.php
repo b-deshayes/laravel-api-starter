@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Gates\AuthGate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,5 +25,16 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
+        $this->registerGates();
+    }
+
+    /**
+     * Register any gates.
+     *
+     * @return void
+     */
+    private function registerGates(): void
+    {
+        Gate::define(AuthGate::LOGIN_ABILITY, 'App\Gates\AuthGate@login');
     }
 }

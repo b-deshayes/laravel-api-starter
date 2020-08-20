@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Gates\AuthGate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
@@ -10,6 +11,7 @@ use App\Http\Resources\User\UserResource;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 /**
  * @group  Authentication
@@ -58,6 +60,12 @@ class AuthController extends Controller
         $token = auth('api')->attempt($validated);
         if (! $token) {
             abort(Response::HTTP_FORBIDDEN, __('api.v1.auth.login.invalid_credentials'));
+        }
+
+        // Check for ip restriction
+        if (!auth('api')->user()->can(AuthGate::LOGIN_ABILITY, $request)) {
+            auth('api')->logout();
+            abort(Response::HTTP_UNAUTHORIZED, __('api.v1.auth.login.ip_restriction'));
         }
 
         return new TokenResource($token);

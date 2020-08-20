@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Kotus\Settings\Facades\Settings;
 use Tests\TestCase;
@@ -43,6 +44,50 @@ class AuthenticationTest extends TestCase
         $response = $this->post(route('api.v1.auth.login'), [
             'email' => $user->email,
             'password' => 'password'
+        ]);
+
+        $response->assertOk()->assertJsonStructure([
+            'data' => [
+                'access_token',
+                'token_type',
+                'expires_in'
+            ],
+        ]);
+    }
+
+    /**
+     * User cannot login if IP restriction is invalid.
+     *
+     * @return void
+     */
+    public function testLoginWithIpRestrictions(): void
+    {
+        $user = factory(User::class)->create();
+
+        $response = $this->post(route('api.v1.auth.login'), [
+            'email' => $user->email,
+            'password' => 'password'
+        ], [
+            'Accept' => 'application/json',
+            'REMOTE_ADDR' => '88.102.45.36',
+        ]);
+
+        $response->assertUnauthorized()->assertExactJson([
+            'message' => trans('api.v1.auth.login.ip_restriction')
+        ]);
+    }
+
+    public function testLoginWithNoIpRestriction(): void
+    {
+        Settings::set('ip_restriction', '*');
+        $user = factory(User::class)->create();
+
+        $response = $this->post(route('api.v1.auth.login'), [
+            'email' => $user->email,
+            'password' => 'password'
+        ], [
+            'Accept' => 'application/json',
+            'REMOTE_ADDR' => '88.102.45.36',
         ]);
 
         $response->assertOk()->assertJsonStructure([
@@ -153,10 +198,11 @@ class AuthenticationTest extends TestCase
             'password' => 'myS3cr3tPassword!'
         ];
 
-        $response = $this->post(route('api.v1.auth.register'),
-            $newUser, [
-            'Accept' => 'application/json'
-        ]);
+        $response = $this->post(
+            route('api.v1.auth.register'),
+            $newUser,
+            ['Accept' => 'application/json'],
+        );
 
         $response->assertCreated()
             ->assertJsonStructure([
@@ -170,6 +216,8 @@ class AuthenticationTest extends TestCase
         $user = User::find($response->json('data.id'));
         self::assertNotNull($user);
         self::assertTrue(Hash::check($newUser['password'], $user->password));
+        Settings::flushCache();
+        self::assertSame($user->ip_restriction, Settings::get('ip_restriction'));
     }
 
     /**
@@ -188,10 +236,13 @@ class AuthenticationTest extends TestCase
             'password' => 'aSimplePasswordWithoutDigitAndSpecialChar'
         ];
 
-        $response = $this->post(route('api.v1.auth.register'),
-            $newUser, [
+        $response = $this->post(
+            route('api.v1.auth.register'),
+            $newUser,
+            [
             'Accept' => 'application/json'
-        ]);
+            ]
+        );
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
             ->assertJsonStructure([

@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use App\Events\UserCreating;
+use App\Events\UserCreated;
 use App\Listeners\AssignDefaultUserRole;
+use App\Listeners\AssignUserIpRestriction;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -14,8 +15,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        UserCreating::class => [
+        UserCreated::class => [
             AssignDefaultUserRole::class,
+            AssignUserIpRestriction::class,
         ]
     ];
 }
