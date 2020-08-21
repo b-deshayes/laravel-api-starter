@@ -20,4 +20,8 @@ Route::prefix('v1')->namespace('Api\V1')->name('api.v1.')->group(static function
     Route::post('auth/register', 'AuthController@register')->name('auth.register');
     Route::get('auth/@me', 'AuthController@profile')->name('auth.me');
     Route::post('auth/refresh', 'AuthController@refresh')->name('auth.refresh');
+
+    Route::get('settings', 'SettingController@index')->name('settings.index');
+    Route::get('settings/{key}', 'SettingController@show')->name('settings.show');
+    Route::patch('settings/{key}', 'SettingController@edit')->name('settings.edit');
 });

@@ -11,10 +11,9 @@ use App\Http\Resources\User\UserResource;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 
 /**
- * @group  Authentication
+ * @group Authentication
  *
  * APIs for user's authentication
  */

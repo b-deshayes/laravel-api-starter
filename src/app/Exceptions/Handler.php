@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,6 +32,16 @@ class Handler extends ExceptionHandler
     ];
 
     /**
+     * All classes that should return a unauthorized message.
+     *
+     * @var string[]
+     */
+    protected $unauthorizedExceptions = [
+        UnauthorizedException::class,
+        AuthorizationException::class,
+    ];
+
+    /**
      * Render an exception into an HTTP response.
      *
      * @param  Request $request
@@ -42,12 +53,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof UnauthorizedException && $request->expectsJson()) {
+        if ($request->expectsJson() && in_array(get_class($exception), $this->unauthorizedExceptions)) {
             return response()
                 ->json([
                     'message' => __('api.exceptions.unauthorized.message')
                 ], Response::HTTP_UNAUTHORIZED);
         }
+
 
         return parent::render($request, $exception);
     }
