@@ -8,8 +8,8 @@ use Illuminate\Http\Response;
 use Kotus\Settings\Facades\Settings;
 
 /**
- * @bodyParam key string required
- * @bodyParam value string required
+ * @bodyParam key string required Key of the setting you want to edit.
+ * @bodyParam value string required Value of the setting.
  */
 class EditRequest extends FormRequest
 {

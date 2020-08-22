@@ -66,6 +66,7 @@
             "@php artisan key:generate --ansi"
         ],
         "insight": "@php artisan insight",
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit",
+        "generate:doc": "@php artisan apidoc:generate"
     }
 }

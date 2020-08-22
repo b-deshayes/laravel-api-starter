@@ -26,7 +26,14 @@ class SettingController extends Controller
     }
 
     /**
-     * TODO: Improve this method with a ResourceCollection
+     * GET settings
+     *
+     * Get all information of all setting.
+     *
+     * @responseFile 200 responses/setting/index.json
+     * @responseFile 401 responses/setting/401.unauthorized.json
+     *
+     * @authenticated
      *
      * @param IndexRequest $request
      *
@@ -40,10 +47,18 @@ class SettingController extends Controller
     }
 
     /**
-     * TODO: Write the documentation
+     * GET settings/{key}
+     *
+     * Get the information about a specific setting by his key.
+     *
+     * @responseFile 200 responses/setting/show.json
+     * @responseFile 401 responses/setting/401.unauthorized.json
+     * @responseFile 404 responses/setting/404.not_found.json
+     *
+     * @authenticated
      *
      * @param ShowRequest $request
-     * @param string $key
+     * @param string $key The key of the setting.
      *
      * @return SettingResource
      */
@@ -57,10 +72,18 @@ class SettingController extends Controller
     }
 
     /**
-     * TODO: Write the documentation
+     * PATCH settings/{key}
+     *
+     * Update the value of an application's setting.
+     *
+     * @responseFile 200 responses/setting/edit.json
+     * @responseFile 401 responses/setting/401.unauthorized.json
+     * @responseFile 404 responses/setting/404.not_found.json
+     *
+     * @authenticated
      *
      * @param EditRequest $request
-     * @param string $key
+     * @param string $key The key of the setting.
      *
      * @return SettingResource
      */

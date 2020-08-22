@@ -47,10 +47,10 @@
           <!-- START_INFO -->
 <h1>Info</h1>
 <p>Welcome to the generated API reference.
-<a href="http://localhost:8081/docs/collection.json">Get Postman Collection</a></p>
+<a href="http://localhost/docs/collection.json">Get Postman Collection</a></p>
 <!-- END_INFO -->
 <h1>Authentication</h1>
-<p>APIs for users's authentication</p>
+<p>APIs for user's authentication</p>
 <!-- START_2be1f0e022faf424f18f30275e61416e -->
 <h2>auth/login</h2>
 <p>Get a JWT Token thought the given credentials.</p>
@@ -58,13 +58,13 @@
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost:8081/api/v1/auth/login" \
+    "http://localhost/api/v1/auth/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -d '{"email":"john@doe.com","password":"secret"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8081/api/v1/auth/login"
+    "http://localhost/api/v1/auth/login"
 );
 
 let headers = {
@@ -87,7 +87,7 @@ fetch(url, {
 <pre><code class="language-php">
 $client = new \GuzzleHttp\Client();
 $response = $client-&gt;post(
-    'http://localhost:8081/api/v1/auth/login',
+    'http://localhost/api/v1/auth/login',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -153,11 +153,11 @@ Logout the user (Invalidate the token).</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X DELETE \
-    "http://localhost:8081/api/v1/auth/logout" \
+    "http://localhost/api/v1/auth/logout" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8081/api/v1/auth/logout"
+    "http://localhost/api/v1/auth/logout"
 );
 
 let headers = {
@@ -174,7 +174,7 @@ fetch(url, {
 <pre><code class="language-php">
 $client = new \GuzzleHttp\Client();
 $response = $client-&gt;delete(
-    'http://localhost:8081/api/v1/auth/logout',
+    'http://localhost/api/v1/auth/logout',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -198,13 +198,13 @@ print_r(json_decode((string) $body));</code></pre>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost:8081/api/v1/auth/register" \
+    "http://localhost/api/v1/auth/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -d '{"name":"John Doe","email":"john@doe.com","password":"secret"}'
 </code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8081/api/v1/auth/register"
+    "http://localhost/api/v1/auth/register"
 );
 
 let headers = {
@@ -228,7 +228,7 @@ fetch(url, {
 <pre><code class="language-php">
 $client = new \GuzzleHttp\Client();
 $response = $client-&gt;post(
-    'http://localhost:8081/api/v1/auth/register',
+    'http://localhost/api/v1/auth/register',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -255,7 +255,7 @@ print_r(json_decode((string) $body));</code></pre>
 <pre><code class="language-json">{
     "data": {
         "id": null,
-        "name": "Krista Swift",
+        "name": "Bianka Smitham",
         "created_at": null
     }
 }</code></pre>
@@ -301,11 +301,11 @@ Get information about current authenticated user.</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X GET \
-    -G "http://localhost:8081/api/v1/auth/@me" \
+    -G "http://localhost/api/v1/auth/@me" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8081/api/v1/auth/@me"
+    "http://localhost/api/v1/auth/@me"
 );
 
 let headers = {
@@ -322,7 +322,7 @@ fetch(url, {
 <pre><code class="language-php">
 $client = new \GuzzleHttp\Client();
 $response = $client-&gt;get(
-    'http://localhost:8081/api/v1/auth/@me',
+    'http://localhost/api/v1/auth/@me',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -338,7 +338,7 @@ print_r(json_decode((string) $body));</code></pre>
 <pre><code class="language-json">{
     "data": {
         "id": null,
-        "name": "Francisco Quitzon",
+        "name": "Destiny Schaefer",
         "created_at": null
     }
 }</code></pre>
@@ -353,11 +353,11 @@ Refresh a token.</p>
 <p>Example request:</p>
 </blockquote>
 <pre><code class="language-bash">curl -X POST \
-    "http://localhost:8081/api/v1/auth/refresh" \
+    "http://localhost/api/v1/auth/refresh" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json"</code></pre>
 <pre><code class="language-javascript">const url = new URL(
-    "http://localhost:8081/api/v1/auth/refresh"
+    "http://localhost/api/v1/auth/refresh"
 );
 
 let headers = {
@@ -374,7 +374,7 @@ fetch(url, {
 <pre><code class="language-php">
 $client = new \GuzzleHttp\Client();
 $response = $client-&gt;post(
-    'http://localhost:8081/api/v1/auth/refresh',
+    'http://localhost/api/v1/auth/refresh',
     [
         'headers' =&gt; [
             'Content-Type' =&gt; 'application/json',
@@ -397,6 +397,236 @@ print_r(json_decode((string) $body));</code></pre>
 <h3>HTTP Request</h3>
 <p><code>POST api/v1/auth/refresh</code></p>
 <!-- END_1c1379ad98c1e4337433460cbb47992e -->
+<h1>Settings</h1>
+<p>APIs for managing all application settings</p>
+<!-- START_0f7c405a059a084f42490f2decb1584b -->
+<h2>GET settings</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+Get all information of all setting.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/settings" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/settings"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get(
+    'http://localhost/api/v1/settings',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": [
+        {
+            "key": "user_registration",
+            "value": "true",
+            "tenant": "main"
+        },
+        {
+            "key": "ip_restriction",
+            "value": "localhost",
+            "tenant": "main"
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "api.exceptions.unauthorized.message"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/settings</code></p>
+<!-- END_0f7c405a059a084f42490f2decb1584b -->
+<!-- START_f25c525ba24103f0b3a6d8679fd774a1 -->
+<h2>GET settings/{key}</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+Get the information about a specific setting by his key.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X GET \
+    -G "http://localhost/api/v1/settings/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json"</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/settings/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;get(
+    'http://localhost/api/v1/settings/1',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "key": "ip_restriction",
+        "value": "localhost"
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "api.exceptions.unauthorized.message"
+}</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "api.v1.setting.edit.key_not_found"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>GET api/v1/settings/{key}</code></p>
+<!-- END_f25c525ba24103f0b3a6d8679fd774a1 -->
+<!-- START_8160535484238186c6fc75dbecd04639 -->
+<h2>PATCH settings/{key}</h2>
+<p><br><small style="padding: 1px 9px 2px;font-weight: bold;white-space: nowrap;color: #ffffff;-webkit-border-radius: 9px;-moz-border-radius: 9px;border-radius: 9px;background-color: #3a87ad;">Requires authentication</small>
+Update the value of an application's setting.</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X PATCH \
+    "http://localhost/api/v1/settings/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"key":"aliquid","value":"aliquid"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/settings/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "key": "aliquid",
+    "value": "aliquid"
+}
+
+fetch(url, {
+    method: "PATCH",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<pre><code class="language-php">
+$client = new \GuzzleHttp\Client();
+$response = $client-&gt;patch(
+    'http://localhost/api/v1/settings/1',
+    [
+        'headers' =&gt; [
+            'Content-Type' =&gt; 'application/json',
+            'Accept' =&gt; 'application/json',
+        ],
+        'json' =&gt; [
+            'key' =&gt; 'aliquid',
+            'value' =&gt; 'aliquid',
+        ],
+    ]
+);
+$body = $response-&gt;getBody();
+print_r(json_decode((string) $body));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "data": {
+        "key": "ip_restriction",
+        "value": "localhost"
+    }
+}</code></pre>
+<blockquote>
+<p>Example response (401):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "api.exceptions.unauthorized.message"
+}</code></pre>
+<blockquote>
+<p>Example response (404):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "message": "api.v1.setting.edit.key_not_found"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>PATCH api/v1/settings/{key}</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>key</code></td>
+<td>string</td>
+<td>required</td>
+<td>Key of the setting you want to edit.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td>string</td>
+<td>required</td>
+<td>Value of the setting.</td>
+</tr>
+</tbody>
+</table>
+<!-- END_8160535484238186c6fc75dbecd04639 -->
       </div>
       <div class="dark-box">
                         <div class="lang-selector">

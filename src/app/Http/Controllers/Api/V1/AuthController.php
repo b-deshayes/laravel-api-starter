@@ -24,7 +24,7 @@ class AuthController extends Controller
      *
      * @var UserRepositoryInterface
      */
-    private $userRepository;
+    private UserRepositoryInterface $userRepository;
 
     /**
      * Create a new AuthController instance.
@@ -46,6 +46,7 @@ class AuthController extends Controller
      * Get a JWT Token thought the given credentials.
      *
      * @responseFile responses/auth/login.json
+     *
      * @responseFile 403 responses/auth/login.403.json
      *
      * @param LoginRequest $request

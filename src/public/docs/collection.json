@@ -2,21 +2,21 @@
     "variables": [],
     "info": {
         "name": "Laravel API",
-        "_postman_id": "df3e8a00-3131-4e2c-8a0b-12c92ad53643",
+        "_postman_id": "a0cc057e-1048-47a7-8aa0-5d20324f4aec",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
     },
     "item": [
         {
             "name": "Authentication",
-            "description": "\nAPIs for users's authentication",
+            "description": "\nAPIs for user's authentication",
             "item": [
                 {
                     "name": "auth\/login",
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "localhost:8081",
+                            "host": "localhost",
                             "path": "api\/v1\/auth\/login",
                             "query": []
                         },
@@ -44,7 +44,7 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "localhost:8081",
+                            "host": "localhost",
                             "path": "api\/v1\/auth\/logout",
                             "query": []
                         },
@@ -72,7 +72,7 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "localhost:8081",
+                            "host": "localhost",
                             "path": "api\/v1\/auth\/register",
                             "query": []
                         },
@@ -100,7 +100,7 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "localhost:8081",
+                            "host": "localhost",
                             "path": "api\/v1\/auth\/@me",
                             "query": []
                         },
@@ -128,7 +128,7 @@
                     "request": {
                         "url": {
                             "protocol": "http",
-                            "host": "localhost:8081",
+                            "host": "localhost",
                             "path": "api\/v1\/auth\/refresh",
                             "query": []
                         },
@@ -148,6 +148,96 @@
                             "raw": "[]"
                         },
                         "description": "Refresh a token.",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Settings",
+            "description": "\nAPIs for managing all application settings",
+            "item": [
+                {
+                    "name": "GET settings",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/settings",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get all information of all setting.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "GET settings\/{key}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/settings\/:key",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Get the information about a specific setting by his key.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "PATCH settings\/{key}",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/settings\/:key",
+                            "query": []
+                        },
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"key\": \"aliquid\",\n    \"value\": \"aliquid\"\n}"
+                        },
+                        "description": "Update the value of an application's setting.",
                         "response": []
                     }
                 }

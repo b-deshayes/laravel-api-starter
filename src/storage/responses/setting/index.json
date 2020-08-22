@@ -1,0 +1,14 @@
+{
+    "data": {
+        "0": {
+            "key": "user_registration",
+            "value": "true",
+            "tenant": "main"
+        },
+        "1": {
+            "key": "ip_restriction",
+            "value": "localhost",
+            "tenant": "main"
+        }
+    }
+}
