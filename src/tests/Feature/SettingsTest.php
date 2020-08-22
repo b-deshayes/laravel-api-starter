@@ -39,7 +39,7 @@ class SettingsTest extends TestCase
     public function testAuthUserWithPermissionCanPatchSetting(): void
     {
         $user = factory(User::class)->create();
-        $user->givePermissionTo(Permission::EDIT_SETTINGS);
+        $user->givePermissionTo(Permission::EDIT_SETTING);
         $token = auth('api')->login($user);
 
         $response = $this->patch(route('api.v1.settings.edit', ['key' => 'ip_restriction']), [
@@ -80,7 +80,7 @@ class SettingsTest extends TestCase
     public function testUserCannotUpdateNotExistingSetting(): void
     {
         $user = factory(User::class)->create();
-        $user->givePermissionTo(Permission::EDIT_SETTINGS);
+        $user->givePermissionTo(Permission::EDIT_SETTING);
         $token = auth('api')->login($user);
 
         $response = $this->patch(route('api.v1.settings.edit', ['key' => 'not_existing_key']), [
@@ -153,6 +153,80 @@ class SettingsTest extends TestCase
 
         $response->assertUnauthorized()->assertExactJson([
             'message' => __('api.exceptions.unauthorized.message'),
+        ]);
+    }
+
+    /**
+     * Test if user with permission can view all settings.
+     */
+    public function testUserWithPermissionViewAllSettings(): void
+    {
+        Config::set('app.debug', true);
+
+        $user = factory(User::class)->create();
+        $user->givePermissionTo(Permission::VIEW_ALL_SETTINGS);
+        $token = auth('api')->login($user);
+
+        $response = $this->get(route('api.v1.settings.index'), [
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $token
+        ]);
+
+        $response->assertOk()->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'key',
+                    'value',
+                    'tenant',
+                ]
+            ]
+        ]);
+    }
+
+    /**
+     * Test if a user without permission cannot view all settings.
+     */
+    public function testUserWithoutPermissionCannotViewSettings(): void
+    {
+        $user = factory(User::class)->create();
+        $token = auth('api')->login($user);
+
+        $response = $this->get(route('api.v1.settings.index'), [
+            'Accept' => 'application/json',
+            'Authorization' => 'Bearer ' . $token
+        ]);
+
+        $response->assertUnauthorized()->assertExactJson([
+            'message' => __('api.exceptions.unauthorized.message'),
+        ]);
+    }
+
+    public function testUnauthenticatedUserCannotSeeSettings(): void
+    {
+        $response = $this->get(route('api.v1.settings.index'), [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertUnauthorized()->assertExactJson([
+            'message'=> __('api.exceptions.unauthenticated')
+        ]);
+
+        $response = $this->get(route('api.v1.settings.edit', ['key' => 'ip_restriction']), [
+            'Accept' => 'application/json',
+        ]);
+
+        $response->assertUnauthorized()->assertExactJson([
+            'message'=> __('api.exceptions.unauthenticated')
+        ]);
+
+        $response = $this->patch(route('api.v1.settings.edit', ['key' => 'not_existing_key']), [
+            'value' => '192.168.1.1'
+        ], [
+            'Accept' => 'application/json'
+        ]);
+
+        $response->assertUnauthorized()->assertExactJson([
+            'message'=> __('api.exceptions.unauthenticated')
         ]);
     }
 }

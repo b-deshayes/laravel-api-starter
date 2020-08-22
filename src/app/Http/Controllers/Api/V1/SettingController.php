@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\EditRequest;
+use App\Http\Requests\Setting\IndexRequest;
 use App\Http\Requests\Setting\ShowRequest;
+use App\Http\Resources\Setting\SettingCollection;
 use App\Http\Resources\Setting\SettingResource;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Kotus\Settings\Facades\Settings;
 
 /**
@@ -29,12 +28,15 @@ class SettingController extends Controller
     /**
      * TODO: Improve this method with a ResourceCollection
      *
-     * @return mixed
+     * @param IndexRequest $request
+     *
+     * @return SettingCollection
      */
-    public function index()
+    public function index(IndexRequest $request): SettingCollection
     {
-        $settings = Settings::all();
-        return $settings;
+        Settings::flushCache(); // TODO: Fix this shit ...
+        $settings = Settings::get();
+        return new SettingCollection($settings);
     }
 
     /**

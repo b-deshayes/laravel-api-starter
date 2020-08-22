@@ -4,10 +4,8 @@ namespace App\Http\Requests\Setting;
 
 use App\Enums\Permission;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Response;
-use Kotus\Settings\Facades\Settings;
 
-class ShowRequest extends FormRequest
+class IndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,13 +14,7 @@ class ShowRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        abort_if(
-            !Settings::has($this->route('key')),
-            Response::HTTP_NOT_FOUND,
-            __('api.v1.setting.edit.key_not_found')
-        );
-
-        return $this->user()->can(Permission::VIEW_SETTING);
+        return $this->user()->can(Permission::VIEW_ALL_SETTINGS);
     }
 
     /**

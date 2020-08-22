@@ -26,7 +26,7 @@ class EditRequest extends FormRequest
             __('api.v1.setting.edit.key_not_found')
         );
 
-        return $this->user()->can(Permission::EDIT_SETTINGS);
+        return $this->user()->can(Permission::EDIT_SETTING);
     }
 
     /**
