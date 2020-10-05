@@ -161,8 +161,6 @@ class SettingsTest extends TestCase
      */
     public function testUserWithPermissionViewAllSettings(): void
     {
-        Config::set('app.debug', true);
-
         $user = factory(User::class)->create();
         $user->givePermissionTo(Permission::VIEW_ALL_SETTINGS);
         $token = auth('api')->login($user);

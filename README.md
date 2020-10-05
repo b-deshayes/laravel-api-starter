@@ -18,10 +18,10 @@ This repository is a prepared template which can be used to create an API. It co
 - [x] GitHub Action PHPInsights and PHPUnit workflows
 - [x] Repository pattern
 - [x] Artisan command to generate repository (artisan make:repository ModelName)
+- [x] Dynamic settings system
 
 ## 🗺 Roadmap
 
-- [ ] Dynamic settings system
 - [ ] ACL system based on permissions and roles
 - [ ] Artisan command to generate an API endpoint model based on entity
 - [ ] Production docker compose stack

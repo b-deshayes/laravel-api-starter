@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0",
@@ -57,7 +57,7 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "@php artisan jwt:secret --always-no"
+            "@jwt"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -65,8 +65,15 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
+        "jwt": "@php artisan jwt:secret --always-no",
         "insight": "@php artisan insight",
         "test": "vendor/bin/phpunit",
-        "generate:doc": "@php artisan apidoc:generate"
+        "generate:doc": "@php artisan apidoc:generate",
+        "build": [
+            "@test",
+            "@insight",
+            "@generate:doc",
+            "@jwt"
+        ]
     }
 }
