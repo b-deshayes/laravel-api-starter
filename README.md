@@ -12,7 +12,7 @@ This repository is a prepared template which can be used to create an API. It co
 
 ## 📌 Current features
 
-- [x] Auto generated documentation
+- [x] Auto generated documentation with Scribe
 - [x] Development docker-compose
 - [x] JWT token system
 - [x] GitHub Action PHPInsights and PHPUnit workflows
@@ -60,7 +60,7 @@ docker-compose run --rm artisan make:repository User # Generate the user reposit
 
 ## 📎 Sources
 
-- [https://laravel.com/docs/7.x/authorization#policy-methods](https://laravel.com/docs/7.x/authorization#policy-methods)
+- [https://laravel.com/docs/8.x/authorization#policy-methods](https://laravel.com/docs/7.x/authorization#policy-methods)
 - [https://github.com/aschmelyun/docker-compose-laravel](https://github.com/aschmelyun/docker-compose-laravel)
 - https://medium.com/@ripoche.b/cr%C3%A9er-une-spa-avec-authentification-par-r%C3%B4les-avec-laravel-et-vue-js-e69782ac6896
 - https://stackoverflow.com/questions/46103215/laravel-permissions-and-roles-with-gate-can

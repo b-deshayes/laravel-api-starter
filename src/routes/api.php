@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\SettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,13 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->namespace('Api\V1')->name('api.v1.')->group(static function () {
-    Route::post('auth/login', 'AuthController@login')->name('auth.login');
-    Route::delete('auth/logout', 'AuthController@logout')->name('auth.logout');
-    Route::post('auth/register', 'AuthController@register')->name('auth.register');
-    Route::get('auth/@me', 'AuthController@profile')->name('auth.me');
-    Route::post('auth/refresh', 'AuthController@refresh')->name('auth.refresh');
+    Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::delete('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    Route::post('auth/register', [AuthController::class, 'register'])->name('auth.register');
+    Route::get('auth/@me', [AuthController::class, 'profile'])->name('auth.me');
+    Route::post('auth/refresh', [AuthController::class, 'refresh'])->name('auth.refresh');
 
-    Route::get('settings', 'SettingController@index')->name('settings.index');
-    Route::get('settings/{key}', 'SettingController@show')->name('settings.show');
-    Route::patch('settings/{key}', 'SettingController@edit')->name('settings.edit');
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::get('settings/{key}', [SettingController::class, 'show'])->name('settings.show');
+    Route::patch('settings/{key}', [SettingController::class, 'edit'])->name('settings.edit');
 });

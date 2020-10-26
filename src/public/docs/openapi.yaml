@@ -1,0 +1,445 @@
+openapi: 3.0.3
+info:
+    title: Laravel
+    description: ''
+    version: 1.0.0
+servers:
+    -
+        url: 'http://localhost'
+paths:
+    /api/v1/auth/login:
+        post:
+            summary: auth/login
+            description: 'Get a JWT Token thought the given credentials.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    data: { access_token: 'e[...]7QOlDpr3d-tGUSTCefyjYN7tBIg', token_type: bearer, expires_in: 3600 }
+                                properties:
+                                    data: { type: object, example: { access_token: 'e[...]7QOlDpr3d-tGUSTCefyjYN7tBIg', token_type: bearer, expires_in: 3600 } }
+                403:
+                    description: '403'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    message: api.v1.auth.login.invalid_credentials
+                                properties:
+                                    message: { type: string, example: api.v1.auth.login.invalid_credentials }
+            tags:
+                - Authentication
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                email:
+                                    type: string
+                                    description: 'The mail of the user.'
+                                    example: john@doe.com
+                                password:
+                                    type: string
+                                    description: 'The password of the user.'
+                                    example: secret
+                            required:
+                                - email
+                                - password
+            security: []
+    /api/v1/auth/logout:
+        delete:
+            summary: auth/logout
+            description: 'Logout the user (Invalidate the token).'
+            parameters:
+                -
+                    in: header
+                    name: Authorization
+                    description: ''
+                    example: 'Bearer {YOUR_AUTH_KEY}'
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                204:
+                    description: '204'
+            tags:
+                - Authentication
+    /api/v1/auth/register:
+        post:
+            summary: auth/register
+            description: 'Register a new user.'
+            parameters:
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                423:
+                    description: '423'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    message: api.v1.auth.register.register_disabled
+                                properties:
+                                    message: { type: string, example: api.v1.auth.register.register_disabled }
+            tags:
+                - Authentication
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                                    description: 'The name of the user.'
+                                    example: 'John Doe'
+                                email:
+                                    type: string
+                                    description: 'The mail of the user.'
+                                    example: john@doe.com
+                                password:
+                                    type: string
+                                    description: 'The password of the user.'
+                                    example: secret
+                            required:
+                                - name
+                                - email
+                                - password
+            security: []
+    /api/v1/auth/@me:
+        get:
+            summary: auth/@me
+            description: 'Get information about current authenticated user.'
+            parameters:
+                -
+                    in: header
+                    name: Authorization
+                    description: ''
+                    example: 'Bearer {YOUR_AUTH_KEY}'
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                500:
+                    description: ''
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    message: 'could not find driver (SQL: select column_name as `column_name` from information_schema.columns where table_schema = inventory and table_name = roles)'
+                                    exception: Illuminate\Database\QueryException
+                                    file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Connection.php
+                                    line: 671
+                                    trace: [{ file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Connection.php, line: 631, function: runQueryCallback, class: Illuminate\Database\Connection, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Connection.php, line: 339, function: run, class: Illuminate\Database\Connection, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Schema/MySqlBuilder.php, line: 33, function: select, class: Illuminate\Database\Connection, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php, line: 222, function: getColumnListing, class: Illuminate\Database\Schema\MySqlBuilder, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php, line: 208, function: isGuardableColumn, class: Illuminate\Database\Eloquent\Model, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php, line: 185, function: isGuarded, class: Illuminate\Database\Eloquent\Model, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php, line: 351, function: isFillable, class: Illuminate\Database\Eloquent\Model, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php, line: 174, function: fill, class: Illuminate\Database\Eloquent\Model, type: '->' }, { file: /var/www/app/vendor/spatie/laravel-permission/src/Models/Role.php, line: 26, function: __construct, class: Illuminate\Database\Eloquent\Model, type: '->' }, { function: __construct, class: Spatie\Permission\Models\Role, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 849, function: newInstanceArgs, class: ReflectionClass, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 637, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 781, function: make, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 959, function: make, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 879, function: resolveClass, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 840, function: resolveDependencies, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 269, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 805, function: 'Illuminate\Container\{closure}', class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 637, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 781, function: make, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 959, function: make, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 879, function: resolveClass, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 840, function: resolveDependencies, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 269, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 805, function: 'Illuminate\Container\{closure}', class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 637, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 781, function: make, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 959, function: make, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 879, function: resolveClass, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 840, function: resolveDependencies, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 637, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 781, function: make, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php, line: 269, function: make, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php, line: 990, function: getController, class: Illuminate\Routing\Route, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php, line: 951, function: controllerMiddleware, class: Illuminate\Routing\Route, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 708, function: gatherMiddleware, class: Illuminate\Routing\Route, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 684, function: gatherRouteMiddleware, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 668, function: runRouteWithinStack, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 634, function: runRoute, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 623, function: dispatchToRoute, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php, line: 166, function: dispatch, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 128, function: 'Illuminate\Foundation\Http\{closure}', class: Illuminate\Foundation\Http\Kernel, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php, line: 21, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Illuminate\Foundation\Http\Middleware\TransformsRequest, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php, line: 21, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Illuminate\Foundation\Http\Middleware\TransformsRequest, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php, line: 27, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Illuminate\Foundation\Http\Middleware\ValidatePostSize, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php, line: 87, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance, type: '->' }, { file: /var/www/app/vendor/fruitcake/laravel-cors/src/HandleCors.php, line: 57, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Fruitcake\Cors\HandleCors, type: '->' }, { file: /var/www/app/vendor/fideloper/proxy/src/TrustProxies.php, line: 57, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Fideloper\Proxy\TrustProxies, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 103, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php, line: 141, function: then, class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php, line: 110, function: sendRequestThroughRouter, class: Illuminate\Foundation\Http\Kernel, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 323, function: handle, class: Illuminate\Foundation\Http\Kernel, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 305, function: callLaravelOrLumenRoute, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 76, function: makeApiCall, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 51, function: makeResponseCall, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 41, function: makeResponseCallIfEnabledAndNoSuccessResponses, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Generator.php, line: 235, function: __invoke, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Generator.php, line: 171, function: iterateThroughStrategies, class: Knuckles\Scribe\Extracting\Generator, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Generator.php, line: 126, function: fetchResponses, class: Knuckles\Scribe\Extracting\Generator, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php, line: 118, function: processRoute, class: Knuckles\Scribe\Extracting\Generator, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php, line: 73, function: processRoutes, class: Knuckles\Scribe\Commands\GenerateDocumentation, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php, line: 36, function: handle, class: Knuckles\Scribe\Commands\GenerateDocumentation, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Util.php, line: 40, function: 'Illuminate\Container\{closure}', class: Illuminate\Container\BoundMethod, type: '::' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php, line: 93, function: unwrapIfClosure, class: Illuminate\Container\Util, type: '::' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php, line: 37, function: callBoundMethod, class: Illuminate\Container\BoundMethod, type: '::' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 596, function: call, class: Illuminate\Container\BoundMethod, type: '::' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Console/Command.php, line: 136, function: call, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/symfony/console/Command/Command.php, line: 258, function: execute, class: Illuminate\Console\Command, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Console/Command.php, line: 121, function: run, class: Symfony\Component\Console\Command\Command, type: '->' }, { file: /var/www/app/vendor/symfony/console/Application.php, line: 920, function: run, class: Illuminate\Console\Command, type: '->' }, { file: /var/www/app/vendor/symfony/console/Application.php, line: 266, function: doRunCommand, class: Symfony\Component\Console\Application, type: '->' }, { file: /var/www/app/vendor/symfony/console/Application.php, line: 142, function: doRun, class: Symfony\Component\Console\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Console/Application.php, line: 93, function: run, class: Symfony\Component\Console\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php, line: 129, function: run, class: Illuminate\Console\Application, type: '->' }, { file: /var/www/app/artisan, line: 37, function: handle, class: Illuminate\Foundation\Console\Kernel, type: '->' }]
+                                properties:
+                                    message: { type: string, example: 'could not find driver (SQL: select column_name as `column_name` from information_schema.columns where table_schema = inventory and table_name = roles)' }
+                                    exception: { type: string, example: Illuminate\Database\QueryException }
+                                    file: { type: string, example: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Connection.php }
+                                    line: { type: integer, example: 671 }
+                                    trace: { type: array, example: [{ file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Connection.php, line: 631, function: runQueryCallback, class: Illuminate\Database\Connection, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Connection.php, line: 339, function: run, class: Illuminate\Database\Connection, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Schema/MySqlBuilder.php, line: 33, function: select, class: Illuminate\Database\Connection, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php, line: 222, function: getColumnListing, class: Illuminate\Database\Schema\MySqlBuilder, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php, line: 208, function: isGuardableColumn, class: Illuminate\Database\Eloquent\Model, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php, line: 185, function: isGuarded, class: Illuminate\Database\Eloquent\Model, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php, line: 351, function: isFillable, class: Illuminate\Database\Eloquent\Model, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php, line: 174, function: fill, class: Illuminate\Database\Eloquent\Model, type: '->' }, { file: /var/www/app/vendor/spatie/laravel-permission/src/Models/Role.php, line: 26, function: __construct, class: Illuminate\Database\Eloquent\Model, type: '->' }, { function: __construct, class: Spatie\Permission\Models\Role, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 849, function: newInstanceArgs, class: ReflectionClass, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 637, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 781, function: make, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 959, function: make, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 879, function: resolveClass, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 840, function: resolveDependencies, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 269, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 805, function: 'Illuminate\Container\{closure}', class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 637, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 781, function: make, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 959, function: make, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 879, function: resolveClass, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 840, function: resolveDependencies, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 269, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 805, function: 'Illuminate\Container\{closure}', class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 637, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 781, function: make, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 959, function: make, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 879, function: resolveClass, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 840, function: resolveDependencies, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 691, function: build, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 796, function: resolve, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 637, function: resolve, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Application.php, line: 781, function: make, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php, line: 269, function: make, class: Illuminate\Foundation\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php, line: 990, function: getController, class: Illuminate\Routing\Route, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Route.php, line: 951, function: controllerMiddleware, class: Illuminate\Routing\Route, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 708, function: gatherMiddleware, class: Illuminate\Routing\Route, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 684, function: gatherRouteMiddleware, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 668, function: runRouteWithinStack, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 634, function: runRoute, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Routing/Router.php, line: 623, function: dispatchToRoute, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php, line: 166, function: dispatch, class: Illuminate\Routing\Router, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 128, function: 'Illuminate\Foundation\Http\{closure}', class: Illuminate\Foundation\Http\Kernel, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php, line: 21, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Illuminate\Foundation\Http\Middleware\TransformsRequest, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php, line: 21, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Illuminate\Foundation\Http\Middleware\TransformsRequest, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ValidatePostSize.php, line: 27, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Illuminate\Foundation\Http\Middleware\ValidatePostSize, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php, line: 87, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance, type: '->' }, { file: /var/www/app/vendor/fruitcake/laravel-cors/src/HandleCors.php, line: 57, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Fruitcake\Cors\HandleCors, type: '->' }, { file: /var/www/app/vendor/fideloper/proxy/src/TrustProxies.php, line: 57, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 167, function: handle, class: Fideloper\Proxy\TrustProxies, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php, line: 103, function: 'Illuminate\Pipeline\{closure}', class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php, line: 141, function: then, class: Illuminate\Pipeline\Pipeline, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php, line: 110, function: sendRequestThroughRouter, class: Illuminate\Foundation\Http\Kernel, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 323, function: handle, class: Illuminate\Foundation\Http\Kernel, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 305, function: callLaravelOrLumenRoute, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 76, function: makeApiCall, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 51, function: makeResponseCall, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Strategies/Responses/ResponseCalls.php, line: 41, function: makeResponseCallIfEnabledAndNoSuccessResponses, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Generator.php, line: 235, function: __invoke, class: Knuckles\Scribe\Extracting\Strategies\Responses\ResponseCalls, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Generator.php, line: 171, function: iterateThroughStrategies, class: Knuckles\Scribe\Extracting\Generator, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Extracting/Generator.php, line: 126, function: fetchResponses, class: Knuckles\Scribe\Extracting\Generator, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php, line: 118, function: processRoute, class: Knuckles\Scribe\Extracting\Generator, type: '->' }, { file: /var/www/app/vendor/knuckleswtf/scribe/src/Commands/GenerateDocumentation.php, line: 73, function: processRoutes, class: Knuckles\Scribe\Commands\GenerateDocumentation, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php, line: 36, function: handle, class: Knuckles\Scribe\Commands\GenerateDocumentation, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Util.php, line: 40, function: 'Illuminate\Container\{closure}', class: Illuminate\Container\BoundMethod, type: '::' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php, line: 93, function: unwrapIfClosure, class: Illuminate\Container\Util, type: '::' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php, line: 37, function: callBoundMethod, class: Illuminate\Container\BoundMethod, type: '::' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Container/Container.php, line: 596, function: call, class: Illuminate\Container\BoundMethod, type: '::' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Console/Command.php, line: 136, function: call, class: Illuminate\Container\Container, type: '->' }, { file: /var/www/app/vendor/symfony/console/Command/Command.php, line: 258, function: execute, class: Illuminate\Console\Command, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Console/Command.php, line: 121, function: run, class: Symfony\Component\Console\Command\Command, type: '->' }, { file: /var/www/app/vendor/symfony/console/Application.php, line: 920, function: run, class: Illuminate\Console\Command, type: '->' }, { file: /var/www/app/vendor/symfony/console/Application.php, line: 266, function: doRunCommand, class: Symfony\Component\Console\Application, type: '->' }, { file: /var/www/app/vendor/symfony/console/Application.php, line: 142, function: doRun, class: Symfony\Component\Console\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Console/Application.php, line: 93, function: run, class: Symfony\Component\Console\Application, type: '->' }, { file: /var/www/app/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php, line: 129, function: run, class: Illuminate\Console\Application, type: '->' }, { file: /var/www/app/artisan, line: 37, function: handle, class: Illuminate\Foundation\Console\Kernel, type: '->' }], items: { type: object } }
+            tags:
+                - Authentication
+    /api/v1/auth/refresh:
+        post:
+            summary: auth/refresh
+            description: 'Refresh a token.'
+            parameters:
+                -
+                    in: header
+                    name: Authorization
+                    description: ''
+                    example: 'Bearer {YOUR_AUTH_KEY}'
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    data: { access_token: 'e[...]7QOlDpr3d-tGUSTCefyjYN7tBIg', token_type: bearer, expires_in: 3600 }
+                                properties:
+                                    data: { type: object, example: { access_token: 'e[...]7QOlDpr3d-tGUSTCefyjYN7tBIg', token_type: bearer, expires_in: 3600 } }
+            tags:
+                - Authentication
+    /api/v1/settings:
+        get:
+            summary: 'GET settings'
+            description: 'Get all information of all setting.'
+            parameters:
+                -
+                    in: header
+                    name: Authorization
+                    description: ''
+                    example: 'Bearer {YOUR_AUTH_KEY}'
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    data: { '0': { key: user_registration, value: 'true', tenant: main }, '1': { key: ip_restriction, value: localhost, tenant: main } }
+                                properties:
+                                    data: { type: object, example: { '0': { key: user_registration, value: 'true', tenant: main }, '1': { key: ip_restriction, value: localhost, tenant: main } } }
+                401:
+                    description: '401'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    message: api.exceptions.unauthorized.message
+                                properties:
+                                    message: { type: string, example: api.exceptions.unauthorized.message }
+            tags:
+                - Settings
+    '/api/v1/settings/{key}':
+        get:
+            summary: 'GET settings/{key}'
+            description: 'Get the information about a specific setting by his key.'
+            parameters:
+                -
+                    in: header
+                    name: Authorization
+                    description: ''
+                    example: 'Bearer {YOUR_AUTH_KEY}'
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    data: { key: ip_restriction, value: localhost }
+                                properties:
+                                    data: { type: object, example: { key: ip_restriction, value: localhost } }
+                401:
+                    description: '401'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    message: api.exceptions.unauthorized.message
+                                properties:
+                                    message: { type: string, example: api.exceptions.unauthorized.message }
+                404:
+                    description: '404'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    message: api.v1.setting.edit.key_not_found
+                                properties:
+                                    message: { type: string, example: api.v1.setting.edit.key_not_found }
+            tags:
+                - Settings
+        patch:
+            summary: 'PATCH settings/{key}'
+            description: 'Update the value of an application''s setting.'
+            parameters:
+                -
+                    in: header
+                    name: Authorization
+                    description: ''
+                    example: 'Bearer {YOUR_AUTH_KEY}'
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Content-Type
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+                -
+                    in: header
+                    name: Accept
+                    description: ''
+                    example: application/json
+                    schema:
+                        type: string
+            responses:
+                200:
+                    description: '200'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    data: { key: ip_restriction, value: localhost }
+                                properties:
+                                    data: { type: object, example: { key: ip_restriction, value: localhost } }
+                401:
+                    description: '401'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    message: api.exceptions.unauthorized.message
+                                properties:
+                                    message: { type: string, example: api.exceptions.unauthorized.message }
+                404:
+                    description: '404'
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                example:
+                                    message: api.v1.setting.edit.key_not_found
+                                properties:
+                                    message: { type: string, example: api.v1.setting.edit.key_not_found }
+            tags:
+                - Settings
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                value:
+                                    type: string
+                                    description: 'Value of the setting.'
+                                    example: ea
+                                key:
+                                    type: string
+                                    description: 'Key of the setting you want to edit.'
+                                    example: voluptatem
+                            required:
+                                - value
+                                - key
+        parameters:
+            -
+                in: path
+                name: key
+                description: ''
+                example: rerum
+                required: true
+                schema:
+                    type: string
+components:
+    securitySchemes:
+        default:
+            type: http
+            scheme: bearer
+            description: ''
+security:
+    -
+        default: []

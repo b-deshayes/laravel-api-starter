@@ -39,7 +39,7 @@ class AuthenticationTest extends TestCase
      */
     public function testSuccessfullyLogin(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->post(route('api.v1.auth.login'), [
             'email' => $user->email,
@@ -62,7 +62,7 @@ class AuthenticationTest extends TestCase
      */
     public function testLoginWithIpRestrictions(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->post(route('api.v1.auth.login'), [
             'email' => $user->email,
@@ -80,7 +80,7 @@ class AuthenticationTest extends TestCase
     public function testLoginWithNoIpRestriction(): void
     {
         Settings::set('ip_restriction', '*');
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->post(route('api.v1.auth.login'), [
             'email' => $user->email,
@@ -106,7 +106,7 @@ class AuthenticationTest extends TestCase
      */
     public function testLoginWithBadCredentials(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $response = $this->post(route('api.v1.auth.login'), [
             'email' => $user->email,
@@ -128,7 +128,7 @@ class AuthenticationTest extends TestCase
      */
     public function testCanSeeMyData(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $token = auth('api')->login($user);
 
         $data = $this->get(route('api.v1.auth.me'), [
@@ -263,7 +263,7 @@ class AuthenticationTest extends TestCase
      */
     public function testLoggedInUserCanRefreshToken(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $token = auth('api')->login($user);
 
         $expires_in = Carbon::parse(auth('api')->payload()['exp']);
@@ -291,7 +291,7 @@ class AuthenticationTest extends TestCase
      */
     public function testRevokeTokenOnLogout(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $token = auth('api')->login($user);
 
         $logout = $this->delete(route('api.v1.auth.logout'), [], [

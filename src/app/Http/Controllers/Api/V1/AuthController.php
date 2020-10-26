@@ -24,7 +24,7 @@ class AuthController extends Controller
      *
      * @var UserRepositoryInterface
      */
-    private UserRepositoryInterface $userRepository;
+    private $userRepository;
 
     /**
      * Create a new AuthController instance.

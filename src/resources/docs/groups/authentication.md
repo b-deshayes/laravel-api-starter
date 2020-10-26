@@ -1,83 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Laravel Documentation</title>
+# Authentication
 
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+APIs for user's authentication
 
-        <link rel="stylesheet" href="css/style.css" media="screen" />
-        <link rel="stylesheet" href="css/print.css" media="print" />
-        <script src="js/all.js"></script>
+## auth/login
 
-        <link rel="stylesheet" href="css/highlight-darcula.css" media="" />
-        <script src="js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 
-</head>
+Get a JWT Token thought the given credentials.
 
-<body class="" data-languages="[&quot;bash&quot;,&quot;javascript&quot;,&quot;php&quot;]">
-<a href="#" id="nav-button">
-      <span>
-        NAV
-            <img src="images/navbar.png" alt="-image" class=""/>
-      </span>
-</a>
-<div class="tocify-wrapper">
-                <div class="lang-selector">
-                            <a href="#" data-language-name="bash">bash</a>
-                            <a href="#" data-language-name="javascript">javascript</a>
-                            <a href="#" data-language-name="php">php</a>
-                    </div>
-        <div class="search">
-        <input type="text" class="search" id="input-search" placeholder="Search">
-    </div>
-    <ul class="search-results"></ul>
+> Example request:
 
-    <ul id="toc">
-    </ul>
-
-            <ul class="toc-footer" id="toc-footer">
-                            <li><a href="./openapi.yaml">View OpenAPI (Swagger) spec</a></li>
-                            <li><a href='http://github.com/knuckleswtf/scribe'>Documentation powered by Scribe ✍</a></li>
-                    </ul>
-            <ul class="toc-footer" id="last-updated">
-            <li>Last updated: October 26 2020</li>
-        </ul>
-</div>
-<div class="page-wrapper">
-    <div class="dark-box"></div>
-    <div class="content">
-        <h1>Introduction</h1>
-<p>This documentation aims to provide all the information you need to work with our API.</p>
-<aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
-You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
-<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
-<script>
-    var baseUrl = "http://localhost";
-</script>
-<script src="js/tryitout.js"></script>
-<blockquote>
-<p>Base URL</p>
-</blockquote>
-<pre><code class="language-yaml">http://localhost</code></pre><h1>Authenticating requests</h1>
-<p>To authenticate requests, include an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_AUTH_KEY}"</code></strong>.\n\nAll authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
-<p>You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.</p><h1>Authentication</h1>
-<p>APIs for user's authentication</p>
-<h2>auth/login</h2>
-<p>Get a JWT Token thought the given credentials.</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
+```bash
+curl -X POST \
     "http://localhost/api/v1/auth/login" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -d '{"email":"john@doe.com","password":"secret"}'
-</code></pre>
-<pre><code class="language-javascript">const url = new URL(
+
+```
+
+```javascript
+const url = new URL(
     "http://localhost/api/v1/auth/login"
 );
 
@@ -95,40 +37,48 @@ fetch(url, {
     method: "POST",
     headers,
     body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre>
-<pre><code class="language-php">
+}).then(response => response.json());
+```
+
+```php
+
 $client = new \GuzzleHttp\Client();
-$response = $client-&gt;post(
+$response = $client->post(
     'http://localhost/api/v1/auth/login',
     [
-        'headers' =&gt; [
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
         ],
-        'json' =&gt; [
-            'email' =&gt; 'john@doe.com',
-            'password' =&gt; 'secret',
+        'json' => [
+            'email' => 'john@doe.com',
+            'password' => 'secret',
         ],
     ]
 );
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (200):
+
+```json
+{
     "data": {
         "access_token": "e[...]7QOlDpr3d-tGUSTCefyjYN7tBIg",
         "token_type": "bearer",
         "expires_in": 3600
     }
-}</code></pre>
-<blockquote>
-<p>Example response (403):</p>
-</blockquote>
-<pre><code class="language-json">{
+}
+```
+> Example response (403):
+
+```json
+{
     "message": "api.v1.auth.login.invalid_credentials"
-}</code></pre>
+}
+```
 <div id="execution-results-POSTapi-v1-auth-login" hidden>
     <blockquote>Received response<span id="execution-response-status-POSTapi-v1-auth-login"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-POSTapi-v1-auth-login"></code></pre>
@@ -161,18 +111,26 @@ The mail of the user.</p>
 The password of the user.</p>
 
 </form>
-<h2>auth/logout</h2>
-<p><small class="badge badge-darkred">requires authentication</small></p>
-<p>Logout the user (Invalidate the token).</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X DELETE \
+
+
+## auth/logout
+
+<small class="badge badge-darkred">requires authentication</small>
+
+Logout the user (Invalidate the token).
+
+> Example request:
+
+```bash
+curl -X DELETE \
     "http://localhost/api/v1/auth/logout" \
     -H "Authorization: Bearer {YOUR_AUTH_KEY}" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
     "http://localhost/api/v1/auth/logout"
 );
 
@@ -182,28 +140,36 @@ let headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "DELETE",
     headers,
-}).then(response =&gt; response.json());</code></pre>
-<pre><code class="language-php">
+}).then(response => response.json());
+```
+
+```php
+
 $client = new \GuzzleHttp\Client();
-$response = $client-&gt;delete(
+$response = $client->delete(
     'http://localhost/api/v1/auth/logout',
     [
-        'headers' =&gt; [
-            'Authorization' =&gt; 'Bearer {YOUR_AUTH_KEY}',
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
+        'headers' => [
+            'Authorization' => 'Bearer {YOUR_AUTH_KEY}',
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
         ],
     ]
 );
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre>
-<blockquote>
-<p>Example response (204):</p>
-</blockquote>
-<pre><code class="language-json">&lt;Empty response&gt;</code></pre>
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (204):
+
+```json
+<Empty response>
+```
 <div id="execution-results-DELETEapi-v1-auth-logout" hidden>
     <blockquote>Received response<span id="execution-response-status-DELETEapi-v1-auth-logout"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-DELETEapi-v1-auth-logout"></code></pre>
@@ -227,18 +193,26 @@ print_r(json_decode((string) $body));</code></pre>
 <label id="auth-DELETEapi-v1-auth-logout" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="DELETEapi-v1-auth-logout" data-component="header"></label>
 </p>
 </form>
-<h2>auth/register</h2>
-<p>Register a new user.</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
+
+
+## auth/register
+
+
+Register a new user.
+
+> Example request:
+
+```bash
+curl -X POST \
     "http://localhost/api/v1/auth/register" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -d '{"name":"John Doe","email":"john@doe.com","password":"secret"}'
-</code></pre>
-<pre><code class="language-javascript">const url = new URL(
+
+```
+
+```javascript
+const url = new URL(
     "http://localhost/api/v1/auth/register"
 );
 
@@ -257,31 +231,38 @@ fetch(url, {
     method: "POST",
     headers,
     body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre>
-<pre><code class="language-php">
+}).then(response => response.json());
+```
+
+```php
+
 $client = new \GuzzleHttp\Client();
-$response = $client-&gt;post(
+$response = $client->post(
     'http://localhost/api/v1/auth/register',
     [
-        'headers' =&gt; [
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
         ],
-        'json' =&gt; [
-            'name' =&gt; 'John Doe',
-            'email' =&gt; 'john@doe.com',
-            'password' =&gt; 'secret',
+        'json' => [
+            'name' => 'John Doe',
+            'email' => 'john@doe.com',
+            'password' => 'secret',
         ],
     ]
 );
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre>
-<blockquote>
-<p>Example response (423):</p>
-</blockquote>
-<pre><code class="language-json">{
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (423):
+
+```json
+{
     "message": "api.v1.auth.register.register_disabled"
-}</code></pre>
+}
+```
 <div id="execution-results-POSTapi-v1-auth-register" hidden>
     <blockquote>Received response<span id="execution-response-status-POSTapi-v1-auth-register"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-POSTapi-v1-auth-register"></code></pre>
@@ -319,18 +300,26 @@ The mail of the user.</p>
 The password of the user.</p>
 
 </form>
-<h2>auth/@me</h2>
-<p><small class="badge badge-darkred">requires authentication</small></p>
-<p>Get information about current authenticated user.</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET \
+
+
+## auth/@me
+
+<small class="badge badge-darkred">requires authentication</small>
+
+Get information about current authenticated user.
+
+> Example request:
+
+```bash
+curl -X GET \
     -G "http://localhost/api/v1/auth/@me" \
     -H "Authorization: Bearer {YOUR_AUTH_KEY}" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
     "http://localhost/api/v1/auth/@me"
 );
 
@@ -340,28 +329,35 @@ let headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "GET",
     headers,
-}).then(response =&gt; response.json());</code></pre>
-<pre><code class="language-php">
+}).then(response => response.json());
+```
+
+```php
+
 $client = new \GuzzleHttp\Client();
-$response = $client-&gt;get(
+$response = $client->get(
     'http://localhost/api/v1/auth/@me',
     [
-        'headers' =&gt; [
-            'Authorization' =&gt; 'Bearer {YOUR_AUTH_KEY}',
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
+        'headers' => [
+            'Authorization' => 'Bearer {YOUR_AUTH_KEY}',
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
         ],
     ]
 );
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre>
-<blockquote>
-<p>Example response (500):</p>
-</blockquote>
-<pre><code class="language-json">{
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (500):
+
+```json
+{
     "message": "could not find driver (SQL: select column_name as `column_name` from information_schema.columns where table_schema = inventory and table_name = roles)",
     "exception": "Illuminate\\Database\\QueryException",
     "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Database\/Connection.php",
@@ -372,558 +368,558 @@ print_r(json_decode((string) $body));</code></pre>
             "line": 631,
             "function": "runQueryCallback",
             "class": "Illuminate\\Database\\Connection",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Database\/Connection.php",
             "line": 339,
             "function": "run",
             "class": "Illuminate\\Database\\Connection",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Database\/Schema\/MySqlBuilder.php",
             "line": 33,
             "function": "select",
             "class": "Illuminate\\Database\\Connection",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Database\/Eloquent\/Concerns\/GuardsAttributes.php",
             "line": 222,
             "function": "getColumnListing",
             "class": "Illuminate\\Database\\Schema\\MySqlBuilder",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Database\/Eloquent\/Concerns\/GuardsAttributes.php",
             "line": 208,
             "function": "isGuardableColumn",
             "class": "Illuminate\\Database\\Eloquent\\Model",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Database\/Eloquent\/Concerns\/GuardsAttributes.php",
             "line": 185,
             "function": "isGuarded",
             "class": "Illuminate\\Database\\Eloquent\\Model",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Database\/Eloquent\/Model.php",
             "line": 351,
             "function": "isFillable",
             "class": "Illuminate\\Database\\Eloquent\\Model",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Database\/Eloquent\/Model.php",
             "line": 174,
             "function": "fill",
             "class": "Illuminate\\Database\\Eloquent\\Model",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/spatie\/laravel-permission\/src\/Models\/Role.php",
             "line": 26,
             "function": "__construct",
             "class": "Illuminate\\Database\\Eloquent\\Model",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "function": "__construct",
             "class": "Spatie\\Permission\\Models\\Role",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 849,
             "function": "newInstanceArgs",
             "class": "ReflectionClass",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 691,
             "function": "build",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 796,
             "function": "resolve",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 637,
             "function": "resolve",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 781,
             "function": "make",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 959,
             "function": "make",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 879,
             "function": "resolveClass",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 840,
             "function": "resolveDependencies",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 691,
             "function": "build",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 796,
             "function": "resolve",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 269,
             "function": "resolve",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 805,
             "function": "Illuminate\\Container\\{closure}",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 691,
             "function": "build",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 796,
             "function": "resolve",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 637,
             "function": "resolve",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 781,
             "function": "make",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 959,
             "function": "make",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 879,
             "function": "resolveClass",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 840,
             "function": "resolveDependencies",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 691,
             "function": "build",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 796,
             "function": "resolve",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 269,
             "function": "resolve",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 805,
             "function": "Illuminate\\Container\\{closure}",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 691,
             "function": "build",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 796,
             "function": "resolve",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 637,
             "function": "resolve",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 781,
             "function": "make",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 959,
             "function": "make",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 879,
             "function": "resolveClass",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 840,
             "function": "resolveDependencies",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 691,
             "function": "build",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 796,
             "function": "resolve",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Container.php",
             "line": 637,
             "function": "resolve",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Application.php",
             "line": 781,
             "function": "make",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php",
             "line": 269,
             "function": "make",
             "class": "Illuminate\\Foundation\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php",
             "line": 990,
             "function": "getController",
             "class": "Illuminate\\Routing\\Route",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php",
             "line": 951,
             "function": "controllerMiddleware",
             "class": "Illuminate\\Routing\\Route",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Router.php",
             "line": 708,
             "function": "gatherMiddleware",
             "class": "Illuminate\\Routing\\Route",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Router.php",
             "line": 684,
             "function": "gatherRouteMiddleware",
             "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Router.php",
             "line": 668,
             "function": "runRouteWithinStack",
             "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Router.php",
             "line": 634,
             "function": "runRoute",
             "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Router.php",
             "line": 623,
             "function": "dispatchToRoute",
             "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Kernel.php",
             "line": 166,
             "function": "dispatch",
             "class": "Illuminate\\Routing\\Router",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php",
             "line": 128,
             "function": "Illuminate\\Foundation\\Http\\{closure}",
             "class": "Illuminate\\Foundation\\Http\\Kernel",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Middleware\/TransformsRequest.php",
             "line": 21,
             "function": "Illuminate\\Pipeline\\{closure}",
             "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php",
             "line": 167,
             "function": "handle",
             "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Middleware\/TransformsRequest.php",
             "line": 21,
             "function": "Illuminate\\Pipeline\\{closure}",
             "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php",
             "line": 167,
             "function": "handle",
             "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Middleware\/ValidatePostSize.php",
             "line": 27,
             "function": "Illuminate\\Pipeline\\{closure}",
             "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php",
             "line": 167,
             "function": "handle",
             "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Middleware\/PreventRequestsDuringMaintenance.php",
             "line": 87,
             "function": "Illuminate\\Pipeline\\{closure}",
             "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php",
             "line": 167,
             "function": "handle",
             "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/fruitcake\/laravel-cors\/src\/HandleCors.php",
             "line": 57,
             "function": "Illuminate\\Pipeline\\{closure}",
             "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php",
             "line": 167,
             "function": "handle",
             "class": "Fruitcake\\Cors\\HandleCors",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/fideloper\/proxy\/src\/TrustProxies.php",
             "line": 57,
             "function": "Illuminate\\Pipeline\\{closure}",
             "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php",
             "line": 167,
             "function": "handle",
             "class": "Fideloper\\Proxy\\TrustProxies",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php",
             "line": 103,
             "function": "Illuminate\\Pipeline\\{closure}",
             "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Kernel.php",
             "line": 141,
             "function": "then",
             "class": "Illuminate\\Pipeline\\Pipeline",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Http\/Kernel.php",
             "line": 110,
             "function": "sendRequestThroughRouter",
             "class": "Illuminate\\Foundation\\Http\\Kernel",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Extracting\/Strategies\/Responses\/ResponseCalls.php",
             "line": 323,
             "function": "handle",
             "class": "Illuminate\\Foundation\\Http\\Kernel",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Extracting\/Strategies\/Responses\/ResponseCalls.php",
             "line": 305,
             "function": "callLaravelOrLumenRoute",
             "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Extracting\/Strategies\/Responses\/ResponseCalls.php",
             "line": 76,
             "function": "makeApiCall",
             "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Extracting\/Strategies\/Responses\/ResponseCalls.php",
             "line": 51,
             "function": "makeResponseCall",
             "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Extracting\/Strategies\/Responses\/ResponseCalls.php",
             "line": 41,
             "function": "makeResponseCallIfEnabledAndNoSuccessResponses",
             "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Extracting\/Generator.php",
             "line": 235,
             "function": "__invoke",
             "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Extracting\/Generator.php",
             "line": 171,
             "function": "iterateThroughStrategies",
             "class": "Knuckles\\Scribe\\Extracting\\Generator",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Extracting\/Generator.php",
             "line": 126,
             "function": "fetchResponses",
             "class": "Knuckles\\Scribe\\Extracting\\Generator",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Commands\/GenerateDocumentation.php",
             "line": 118,
             "function": "processRoute",
             "class": "Knuckles\\Scribe\\Extracting\\Generator",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/knuckleswtf\/scribe\/src\/Commands\/GenerateDocumentation.php",
             "line": 73,
             "function": "processRoutes",
             "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/BoundMethod.php",
             "line": 36,
             "function": "handle",
             "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Container\/Util.php",
@@ -958,66 +954,67 @@ print_r(json_decode((string) $body));</code></pre>
             "line": 136,
             "function": "call",
             "class": "Illuminate\\Container\\Container",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/symfony\/console\/Command\/Command.php",
             "line": 258,
             "function": "execute",
             "class": "Illuminate\\Console\\Command",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Console\/Command.php",
             "line": 121,
             "function": "run",
             "class": "Symfony\\Component\\Console\\Command\\Command",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/symfony\/console\/Application.php",
             "line": 920,
             "function": "run",
             "class": "Illuminate\\Console\\Command",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/symfony\/console\/Application.php",
             "line": 266,
             "function": "doRunCommand",
             "class": "Symfony\\Component\\Console\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/symfony\/console\/Application.php",
             "line": 142,
             "function": "doRun",
             "class": "Symfony\\Component\\Console\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Console\/Application.php",
             "line": 93,
             "function": "run",
             "class": "Symfony\\Component\\Console\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Console\/Kernel.php",
             "line": 129,
             "function": "run",
             "class": "Illuminate\\Console\\Application",
-            "type": "-&gt;"
+            "type": "->"
         },
         {
             "file": "\/var\/www\/app\/artisan",
             "line": 37,
             "function": "handle",
             "class": "Illuminate\\Foundation\\Console\\Kernel",
-            "type": "-&gt;"
+            "type": "->"
         }
     ]
-}</code></pre>
+}
+```
 <div id="execution-results-GETapi-v1-auth-@me" hidden>
     <blockquote>Received response<span id="execution-response-status-GETapi-v1-auth-@me"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-GETapi-v1-auth-@me"></code></pre>
@@ -1041,18 +1038,26 @@ print_r(json_decode((string) $body));</code></pre>
 <label id="auth-GETapi-v1-auth-@me" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-v1-auth-@me" data-component="header"></label>
 </p>
 </form>
-<h2>auth/refresh</h2>
-<p><small class="badge badge-darkred">requires authentication</small></p>
-<p>Refresh a token.</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X POST \
+
+
+## auth/refresh
+
+<small class="badge badge-darkred">requires authentication</small>
+
+Refresh a token.
+
+> Example request:
+
+```bash
+curl -X POST \
     "http://localhost/api/v1/auth/refresh" \
     -H "Authorization: Bearer {YOUR_AUTH_KEY}" \
     -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
+    -H "Accept: application/json"
+```
+
+```javascript
+const url = new URL(
     "http://localhost/api/v1/auth/refresh"
 );
 
@@ -1062,34 +1067,42 @@ let headers = {
     "Accept": "application/json",
 };
 
+
 fetch(url, {
     method: "POST",
     headers,
-}).then(response =&gt; response.json());</code></pre>
-<pre><code class="language-php">
+}).then(response => response.json());
+```
+
+```php
+
 $client = new \GuzzleHttp\Client();
-$response = $client-&gt;post(
+$response = $client->post(
     'http://localhost/api/v1/auth/refresh',
     [
-        'headers' =&gt; [
-            'Authorization' =&gt; 'Bearer {YOUR_AUTH_KEY}',
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
+        'headers' => [
+            'Authorization' => 'Bearer {YOUR_AUTH_KEY}',
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
         ],
     ]
 );
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+
+> Example response (200):
+
+```json
+{
     "data": {
         "access_token": "e[...]7QOlDpr3d-tGUSTCefyjYN7tBIg",
         "token_type": "bearer",
         "expires_in": 3600
     }
-}</code></pre>
+}
+```
 <div id="execution-results-POSTapi-v1-auth-refresh" hidden>
     <blockquote>Received response<span id="execution-response-status-POSTapi-v1-auth-refresh"></span>:</blockquote>
     <pre class="json"><code id="execution-response-content-POSTapi-v1-auth-refresh"></code></pre>
@@ -1112,309 +1125,7 @@ print_r(json_decode((string) $body));</code></pre>
 <p>
 <label id="auth-POSTapi-v1-auth-refresh" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="POSTapi-v1-auth-refresh" data-component="header"></label>
 </p>
-</form><h1>Settings</h1>
-<p>APIs for managing all application settings</p>
-<h2>GET settings</h2>
-<p><small class="badge badge-darkred">requires authentication</small></p>
-<p>Get all information of all setting.</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/api/v1/settings" \
-    -H "Authorization: Bearer {YOUR_AUTH_KEY}" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/settings"
-);
-
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-<pre><code class="language-php">
-$client = new \GuzzleHttp\Client();
-$response = $client-&gt;get(
-    'http://localhost/api/v1/settings',
-    [
-        'headers' =&gt; [
-            'Authorization' =&gt; 'Bearer {YOUR_AUTH_KEY}',
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
-        ],
-    ]
-);
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "data": {
-        "0": {
-            "key": "user_registration",
-            "value": "true",
-            "tenant": "main"
-        },
-        "1": {
-            "key": "ip_restriction",
-            "value": "localhost",
-            "tenant": "main"
-        }
-    }
-}</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "api.exceptions.unauthorized.message"
-}</code></pre>
-<div id="execution-results-GETapi-v1-settings" hidden>
-    <blockquote>Received response<span id="execution-response-status-GETapi-v1-settings"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-v1-settings"></code></pre>
-</div>
-<div id="execution-error-GETapi-v1-settings" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-v1-settings"></code></pre>
-</div>
-<form id="form-GETapi-v1-settings" data-method="GET" data-path="api/v1/settings" data-authed="1" data-hasfiles="0" data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-settings', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius 5px; border-width: thin;" id="btn-tryout-GETapi-v1-settings" onclick="tryItOut('GETapi-v1-settings');">Try it out ⚡</button>
-        <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius 5px; border-width: thin;" id="btn-canceltryout-GETapi-v1-settings" onclick="cancelTryOut('GETapi-v1-settings');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius 5px; border-width: thin;" id="btn-executetryout-GETapi-v1-settings" hidden>Send Request 💥</button>
-</h3>
-<p>
-<small class="badge badge-green">GET</small>
- <b><code>api/v1/settings</code></b>
-</p>
-<p>
-<label id="auth-GETapi-v1-settings" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-v1-settings" data-component="header"></label>
-</p>
 </form>
-<h2>GET settings/{key}</h2>
-<p><small class="badge badge-darkred">requires authentication</small></p>
-<p>Get the information about a specific setting by his key.</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X GET \
-    -G "http://localhost/api/v1/settings/rerum" \
-    -H "Authorization: Bearer {YOUR_AUTH_KEY}" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json"</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/settings/rerum"
-);
 
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
 
-fetch(url, {
-    method: "GET",
-    headers,
-}).then(response =&gt; response.json());</code></pre>
-<pre><code class="language-php">
-$client = new \GuzzleHttp\Client();
-$response = $client-&gt;get(
-    'http://localhost/api/v1/settings/rerum',
-    [
-        'headers' =&gt; [
-            'Authorization' =&gt; 'Bearer {YOUR_AUTH_KEY}',
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
-        ],
-    ]
-);
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "data": {
-        "key": "ip_restriction",
-        "value": "localhost"
-    }
-}</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "api.exceptions.unauthorized.message"
-}</code></pre>
-<blockquote>
-<p>Example response (404):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "api.v1.setting.edit.key_not_found"
-}</code></pre>
-<div id="execution-results-GETapi-v1-settings--key-" hidden>
-    <blockquote>Received response<span id="execution-response-status-GETapi-v1-settings--key-"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-GETapi-v1-settings--key-"></code></pre>
-</div>
-<div id="execution-error-GETapi-v1-settings--key-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-GETapi-v1-settings--key-"></code></pre>
-</div>
-<form id="form-GETapi-v1-settings--key-" data-method="GET" data-path="api/v1/settings/{key}" data-authed="1" data-hasfiles="0" data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-settings--key-', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius 5px; border-width: thin;" id="btn-tryout-GETapi-v1-settings--key-" onclick="tryItOut('GETapi-v1-settings--key-');">Try it out ⚡</button>
-        <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius 5px; border-width: thin;" id="btn-canceltryout-GETapi-v1-settings--key-" onclick="cancelTryOut('GETapi-v1-settings--key-');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius 5px; border-width: thin;" id="btn-executetryout-GETapi-v1-settings--key-" hidden>Send Request 💥</button>
-</h3>
-<p>
-<small class="badge badge-green">GET</small>
- <b><code>api/v1/settings/{key}</code></b>
-</p>
-<p>
-<label id="auth-GETapi-v1-settings--key-" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="GETapi-v1-settings--key-" data-component="header"></label>
-</p>
-<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-<p>
-<b><code>key</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="key" data-endpoint="GETapi-v1-settings--key-" data-component="url" required  hidden>
-<br>
-</p>
-</form>
-<h2>PATCH settings/{key}</h2>
-<p><small class="badge badge-darkred">requires authentication</small></p>
-<p>Update the value of an application's setting.</p>
-<blockquote>
-<p>Example request:</p>
-</blockquote>
-<pre><code class="language-bash">curl -X PATCH \
-    "http://localhost/api/v1/settings/natus" \
-    -H "Authorization: Bearer {YOUR_AUTH_KEY}" \
-    -H "Content-Type: application/json" \
-    -H "Accept: application/json" \
-    -d '{"value":"ea","key":"voluptatem"}'
-</code></pre>
-<pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/settings/natus"
-);
 
-let headers = {
-    "Authorization": "Bearer {YOUR_AUTH_KEY}",
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-};
-
-let body = {
-    "value": "ea",
-    "key": "voluptatem"
-}
-
-fetch(url, {
-    method: "PATCH",
-    headers,
-    body: JSON.stringify(body),
-}).then(response =&gt; response.json());</code></pre>
-<pre><code class="language-php">
-$client = new \GuzzleHttp\Client();
-$response = $client-&gt;patch(
-    'http://localhost/api/v1/settings/natus',
-    [
-        'headers' =&gt; [
-            'Authorization' =&gt; 'Bearer {YOUR_AUTH_KEY}',
-            'Content-Type' =&gt; 'application/json',
-            'Accept' =&gt; 'application/json',
-        ],
-        'json' =&gt; [
-            'value' =&gt; 'ea',
-            'key' =&gt; 'voluptatem',
-        ],
-    ]
-);
-$body = $response-&gt;getBody();
-print_r(json_decode((string) $body));</code></pre>
-<blockquote>
-<p>Example response (200):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "data": {
-        "key": "ip_restriction",
-        "value": "localhost"
-    }
-}</code></pre>
-<blockquote>
-<p>Example response (401):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "api.exceptions.unauthorized.message"
-}</code></pre>
-<blockquote>
-<p>Example response (404):</p>
-</blockquote>
-<pre><code class="language-json">{
-    "message": "api.v1.setting.edit.key_not_found"
-}</code></pre>
-<div id="execution-results-PATCHapi-v1-settings--key-" hidden>
-    <blockquote>Received response<span id="execution-response-status-PATCHapi-v1-settings--key-"></span>:</blockquote>
-    <pre class="json"><code id="execution-response-content-PATCHapi-v1-settings--key-"></code></pre>
-</div>
-<div id="execution-error-PATCHapi-v1-settings--key-" hidden>
-    <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PATCHapi-v1-settings--key-"></code></pre>
-</div>
-<form id="form-PATCHapi-v1-settings--key-" data-method="PATCH" data-path="api/v1/settings/{key}" data-authed="1" data-hasfiles="0" data-headers='{"Authorization":"Bearer {YOUR_AUTH_KEY}","Content-Type":"application\/json","Accept":"application\/json"}' onsubmit="event.preventDefault(); executeTryOut('PATCHapi-v1-settings--key-', this);">
-<h3>
-    Request&nbsp;&nbsp;&nbsp;
-        <button type="button" style="background-color: #8fbcd4; padding: 5px 10px; border-radius 5px; border-width: thin;" id="btn-tryout-PATCHapi-v1-settings--key-" onclick="tryItOut('PATCHapi-v1-settings--key-');">Try it out ⚡</button>
-        <button type="button" style="background-color: #c97a7e; padding: 5px 10px; border-radius 5px; border-width: thin;" id="btn-canceltryout-PATCHapi-v1-settings--key-" onclick="cancelTryOut('PATCHapi-v1-settings--key-');" hidden>Cancel</button>&nbsp;&nbsp;
-    <button type="submit" style="background-color: #6ac174; padding: 5px 10px; border-radius 5px; border-width: thin;" id="btn-executetryout-PATCHapi-v1-settings--key-" hidden>Send Request 💥</button>
-</h3>
-<p>
-<small class="badge badge-purple">PATCH</small>
- <b><code>api/v1/settings/{key}</code></b>
-</p>
-<p>
-<label id="auth-PATCHapi-v1-settings--key-" hidden>Authorization header: <b><code>Bearer </code></b><input type="text" name="Authorization" data-prefix="Bearer " data-endpoint="PATCHapi-v1-settings--key-" data-component="header"></label>
-</p>
-<h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
-<p>
-<b><code>key</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="key" data-endpoint="PATCHapi-v1-settings--key-" data-component="url" required  hidden>
-<br>
-</p>
-<h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-<p>
-<b><code>value</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="value" data-endpoint="PATCHapi-v1-settings--key-" data-component="body" required  hidden>
-<br>
-Value of the setting.</p>
-<p>
-<b><code>key</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-<input type="text" name="key" data-endpoint="PATCHapi-v1-settings--key-" data-component="body" required  hidden>
-<br>
-Key of the setting you want to edit.</p>
-
-</form>
-    </div>
-    <div class="dark-box">
-                    <div class="lang-selector">
-                                    <a href="#" data-language-name="bash">bash</a>
-                                    <a href="#" data-language-name="javascript">javascript</a>
-                                    <a href="#" data-language-name="php">php</a>
-                            </div>
-            </div>
-</div>
-<script>
-    $(function () {
-        var languages = ["bash","javascript","php"];
-        setupLanguages(languages);
-    });
-</script>
-</body>
-</html>

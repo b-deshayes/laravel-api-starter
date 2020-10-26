@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\UserCreated;
 use App\Traits\UsesUuid;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -25,6 +26,7 @@ class User extends Authenticatable implements JWTSubject
     use UsesUuid;
     use Notifiable;
     use HasRoles;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.

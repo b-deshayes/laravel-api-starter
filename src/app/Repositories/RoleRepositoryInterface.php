@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 interface RoleRepositoryInterface extends EloquentRepositoryInterface
 {

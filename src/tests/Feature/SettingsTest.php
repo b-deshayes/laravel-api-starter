@@ -38,7 +38,7 @@ class SettingsTest extends TestCase
      */
     public function testAuthUserWithPermissionCanPatchSetting(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo(Permission::EDIT_SETTING);
         $token = auth('api')->login($user);
 
@@ -62,7 +62,7 @@ class SettingsTest extends TestCase
      */
     public function testUserWithoutPermissionCannotPatchSetting(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $token = auth('api')->login($user);
 
         $response = $this->patch(route('api.v1.settings.edit', ['key' => 'ip_restriction']), [
@@ -79,7 +79,7 @@ class SettingsTest extends TestCase
 
     public function testUserCannotUpdateNotExistingSetting(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo(Permission::EDIT_SETTING);
         $token = auth('api')->login($user);
 
@@ -100,7 +100,7 @@ class SettingsTest extends TestCase
      */
     public function testAuthUserWithPermissionCanShowSetting(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo(Permission::VIEW_SETTING);
         $token = auth('api')->login($user);
 
@@ -124,7 +124,7 @@ class SettingsTest extends TestCase
      */
     public function testUserCannotShowNotExistingSetting(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo(Permission::VIEW_SETTING);
         $token = auth('api')->login($user);
 
@@ -143,7 +143,7 @@ class SettingsTest extends TestCase
      */
     public function testUserWithoutPermissionCannotShowSetting(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $token = auth('api')->login($user);
 
         $response = $this->get(route('api.v1.settings.edit', ['key' => 'ip_restriction']), [
@@ -161,7 +161,7 @@ class SettingsTest extends TestCase
      */
     public function testUserWithPermissionViewAllSettings(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $user->givePermissionTo(Permission::VIEW_ALL_SETTINGS);
         $token = auth('api')->login($user);
 
@@ -186,7 +186,7 @@ class SettingsTest extends TestCase
      */
     public function testUserWithoutPermissionCannotViewSettings(): void
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $token = auth('api')->login($user);
 
         $response = $this->get(route('api.v1.settings.index'), [
