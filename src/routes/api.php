@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\SettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,6 @@ Route::prefix('v1')->namespace('Api\V1')->name('api.v1.')->group(static function
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::get('settings/{key}', [SettingController::class, 'show'])->name('settings.show');
     Route::patch('settings/{key}', [SettingController::class, 'edit'])->name('settings.edit');
+
+    Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
 });

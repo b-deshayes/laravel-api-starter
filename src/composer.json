@@ -19,7 +19,7 @@
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
-        "facade/ignition": "^2.4",
+        "facade/ignition": "^2.5",
         "fzaninotto/faker": "^1.9.1",
         "knuckleswtf/scribe": "^2.0",
         "mockery/mockery": "^1.4.1",
